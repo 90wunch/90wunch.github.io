@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="APC 注入异步过程调用（APC, Asynchronous Procedure Call）是一种在Windows操作系统中使用的机制，允许在一个线程中调用另一个线程的函数，而不会阻塞调用线程。这种机制常用于需要在后台执行任务的情况，比如处理I&#x2F;O操作或定时处理等 原理往线程APC队列添加APC，系统会产生一个软中断。在线程下一次被调度的时候，就会执行APC函数 APC有两种形式，由系统">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925172913792.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/rvMQFeI3UAqbCaY.png">
 <meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173026800.png">
 <meta property="og:image" content="c:\Users\su\Downloads\image.png">
 <meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173153021.png">
@@ -21,11 +21,11 @@
 <meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173329528.png">
 <meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173406735.png">
 <meta property="article:published_time" content="2024-10-08T07:34:43.953Z">
-<meta property="article:modified_time" content="2024-10-08T07:34:44.099Z">
+<meta property="article:modified_time" content="2024-10-08T07:43:37.179Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="标签">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925172913792.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/08/rvMQFeI3UAqbCaY.png">
     
     
         
@@ -183,7 +183,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">// APC1.cpp : 此文件包含 &quot;main&quot; 函数。程序执行将在此处开始并结束。</span><br><span class="line">//</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;Windows.h&gt;</span><br><span class="line">DWORD WINAPI MyThread(LPVOID)</span><br><span class="line">&#123;</span><br><span class="line">int i = 0;</span><br><span class="line">while (true)</span><br><span class="line">&#123;</span><br><span class="line">SleepEx(300, TRUE);</span><br><span class="line">printf(&quot;%d\n&quot;, i++);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">void __stdcall MyApcFunction(LPVOID)</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;Run APCFuntion\n&quot;);</span><br><span class="line">	printf(&quot;APCFunction done\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">HANDLE hThread = CreateThread(0, 0, MyThread, 0, 0, 0);</span><br><span class="line">Sleep(1000);</span><br><span class="line">if (!QueueUserAPC((PAPCFUNC)MyApcFunction, hThread, NULL))</span><br><span class="line">&#123;</span><br><span class="line">printf(&quot;QueueUserAPC error : %d\n&quot;, GetLastError());</span><br><span class="line">&#125;</span><br><span class="line">getchar();</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br><span class="line">//上面的代码如果成功，那么会在print的数字中间插入Run APCFuntion和APCFunction done</span><br></pre></td></tr></table></figure>
 
 <p>回去看下具体的函数结构</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925172913792.png" alt="image-20240925172913792"></p>
+<p><img src="https://s2.loli.net/2024/10/08/rvMQFeI3UAqbCaY.png" alt="image-20240925172913792"></p>
 <p>可以看见，我们调用的api还是从kernel32里面出来的</p>
 <p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173026800.png" alt="image-20240925173026800"></p>
 <p>同理，继续去kernel32里面找，在kernelbase里面的QueueUserAPC函数里面找到了__imp_NtQueueApcThreadEx2</p>
