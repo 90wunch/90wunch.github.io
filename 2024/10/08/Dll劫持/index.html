@@ -8,37 +8,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="Dll Hijacking为什么Dll劫持应用这么广泛 低成本挖掘随着版本的更新，代码的更迭，应用程序自带的Dll数不胜数，几乎随便打开一个应用程序的主目录，都能看见一大把Dll，它们中的很多都满足被劫持的条件 样本存活时间相对较长说它样本存活时间相对较长，是以其他exe，shellcode等恶意文件来对比的，因为dll本身更新迭代的速度很快，杀软不可能总是去匹配这些文件。所以查杀dll的力度，至">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Dll劫持">
 <meta property="og:url" content="http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Dll Hijacking为什么Dll劫持应用这么广泛 低成本挖掘随着版本的更新，代码的更迭，应用程序自带的Dll数不胜数，几乎随便打开一个应用程序的主目录，都能看见一大把Dll，它们中的很多都满足被劫持的条件 样本存活时间相对较长说它样本存活时间相对较长，是以其他exe，shellcode等恶意文件来对比的，因为dll本身更新迭代的速度很快，杀软不可能总是去匹配这些文件。所以查杀dll的力度，至">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005112105673.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005112141804.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005122322168.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005122630554.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005122644612.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005123101288.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005123850111.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005123924761.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005124016526.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005192259924.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005192519534.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005193314323.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005193128413.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005193207141.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005194205620.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005194317524.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195037253.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195024999.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195116812.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195421119.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195532872.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/duiNFAasb1oZ5ht.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/cG4ILDuS3xJtoi7.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/GMULXZFxKTsn7Hy.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/TIE5gGah9J2rW3H.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/B6Wh9v7cptk3Grw.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/td4nVZsrB8F1km2.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/vpKEQe5jo9HGMJr.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/xQtoz1Hnjk2e4Ey.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/31niWGvScACzOZd.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/7fl2NRCKB68eJOd.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/SaRkpjKO37dN2cI.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/XfhQsNgF5nEIATr.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/EI2jwXpChTvRzdD.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/Zml84PWwHKkx6T7.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/vwT3YpohMlgyWFQ.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/Njgy39FShVciRIY.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/2U5rQ43ZSbD7wJu.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/IA1aBpPK7HdCUqg.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/x97NbyUITDAm2oL.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/gMq7IsGLHTEOxrB.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/ulIH7d2QJ13rKzM.png">
 <meta property="article:published_time" content="2024-10-08T03:50:54.553Z">
-<meta property="article:modified_time" content="2024-10-05T11:55:33.457Z">
+<meta property="article:modified_time" content="2024-10-08T14:27:33.392Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="标签">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005112105673.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/08/duiNFAasb1oZ5ht.png">
     
     
         
@@ -58,7 +59,7 @@
         
     
     <!-- title -->
-    <title>Hexo</title>
+    <title>Dll劫持</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -109,15 +110,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&text=Dll劫持"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&is_video=false&description=Dll劫持"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Dll劫持&body=Check out this article: http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&name=Dll劫持&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -134,7 +135,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        Dll劫持
     </h1>
 
 
@@ -150,6 +151,11 @@
 
 
       
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%A0%87%E7%AD%BE/" rel="tag">标签</a>
+    </div>
+
 
     </div>
   </header>
@@ -165,19 +171,19 @@
 <p>下面我们开始介绍几种Dll劫持</p>
 <h1 id="劫持后一次执行"><a href="#劫持后一次执行" class="headerlink" title="劫持后一次执行"></a>劫持后一次执行</h1><p>打开我们的Process Monitor，来监测一下某些程序启动的事件,这里我们要注意一个细节，当我们想要寻找存在Dll劫持的程序的时候，要把exe托出它原来的环境来执行，原因是上面所提到的dll加载顺序，我们需要保证找到的dll，一定是exe所在目录加载的。不然exe在启动的时候还是会优先去找它原来的dll</p>
 <p>我这里找一个软件作为示例</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005112105673.png" alt="image-20241005112105673"></p>
+<p><img src="https://s2.loli.net/2024/10/08/duiNFAasb1oZ5ht.png" alt="image-20241005112105673.png"></p>
 <p>在下面这张图中可以看见，由于我将exe文件拖出了原本的环境，所以有些dll的加载路径变成了当前exe路径，有些则不变，我们需要的是前者</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005112141804.png" alt="image-20241005112141804"></p>
+<p><img src="https://s2.loli.net/2024/10/08/cG4ILDuS3xJtoi7.png" alt="image-20241005112141804.png"></p>
 <p>这里提一下，之所以需要Result的结果是NAME NOT FOUND是因为我们就是需要这些Dll在CreateFile这个Operation时没被找到，这样对软件本身的影响是最小的。</p>
 <p>我们就以下面这个dll为例</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005122322168.png" alt="image-20241005122322168"></p>
+<p><img src="https://s2.loli.net/2024/10/08/GMULXZFxKTsn7Hy.png" alt="image-20241005122322168.png"></p>
 <p>首先先在vs2022中编写一个dll，来个弹窗或者弹计算器都行</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pch.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">BOOL APIENTRY <span class="title function_">DllMain</span><span class="params">( HMODULE hModule,</span></span><br><span class="line"><span class="params">                       DWORD  ul_reason_for_call,</span></span><br><span class="line"><span class="params">                       LPVOID lpReserved</span></span><br><span class="line"><span class="params">                     )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (ul_reason_for_call)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">        MessageBoxW(<span class="number">0</span>, <span class="string">L&quot;1&quot;</span>, <span class="string">L&quot;1&quot;</span>, MB_OK);</span><br><span class="line">    <span class="keyword">case</span> DLL_THREAD_ATTACH:</span><br><span class="line">        MessageBoxW(<span class="number">0</span>, <span class="string">L&quot;2&quot;</span>, <span class="string">L&quot;2&quot;</span>, MB_OK);</span><br><span class="line">    <span class="keyword">case</span> DLL_THREAD_DETACH:</span><br><span class="line">    <span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然后我们将Dll改名，改为dbghelp.dll，然后执行</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005122630554.png" alt="image-20241005122630554"></p>
+<p><img src="https://s2.loli.net/2024/10/08/TIE5gGah9J2rW3H.png" alt="tet.png"></p>
 <p>这时候报了一个错，这说明exe中用到，或者说声明了这个Dll中的一些函数，当exe链接dll时，并没有在我们dll的导出表里面找到这些函数的定义</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005122644612.png" alt="image-20241005122644612"></p>
+<p><img src="https://s2.loli.net/2024/10/08/B6Wh9v7cptk3Grw.png" alt="image-20241005122644612.png"></p>
 <p>所以这个时候我们就需要手动的将这些函数声明出来</p>
 <p>但是我们怎么知道exe里面可能用了dll里面的哪些函数呢，这就需要我们看exe的导入表，也就用到了dumpbin（vs2022自带）,多余的我导出表部分我就省略了</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\su\Desktop\typora-activation&gt; dumpbin /Imports .\WeMeetApp.exe</span><br><span class="line"><span class="title function_">Microsoft</span> <span class="params">(R)</span> COFF/PE Dumper Version 14.38.33139.0</span><br><span class="line"><span class="title function_">Copyright</span> <span class="params">(C)</span> Microsoft Corporation.  All rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Dump of file .\WeMeetApp.exe</span><br><span class="line"></span><br><span class="line">File Type: EXECUTABLE IMAGE</span><br><span class="line"></span><br><span class="line">  Section contains the following imports:</span><br><span class="line"></span><br><span class="line">    VERSION.dll</span><br><span class="line">             1400C4838 Import Address Table</span><br><span class="line">             1400E8A58 Import Name Table</span><br><span class="line">                     0 time date stamp</span><br><span class="line">                     0 Index of first forwarder reference</span><br><span class="line"></span><br><span class="line">                           8 GetFileVersionInfoW</span><br><span class="line">                          10 VerQueryValueW</span><br><span class="line">                           7 GetFileVersionInfoSizeW</span><br><span class="line"></span><br><span class="line">  ......................................................</span><br><span class="line">    dbghelp.dll</span><br><span class="line">             1400C4868 Import Address Table</span><br><span class="line">             1400E8A88 Import Name Table</span><br><span class="line">                     0 time date stamp</span><br><span class="line">                     0 Index of first forwarder reference</span><br><span class="line"></span><br><span class="line">                          BE SymSetOptions</span><br><span class="line">                          C4 SymSetSearchPathW</span><br><span class="line">                          33 SymCleanup</span><br><span class="line">                          58 SymFromAddr</span><br><span class="line">                          88 SymGetSearchPathW</span><br><span class="line">                          6B SymGetLineFromAddr64</span><br><span class="line">                          A2 SymInitialize</span><br><span class="line"></span><br><span class="line">  ...................................................</span><br><span class="line">  Summary</span><br><span class="line"></span><br><span class="line">        A000 .data</span><br><span class="line">        9000 .pdata</span><br><span class="line">       27000 .rdata</span><br><span class="line">        2000 .reloc</span><br><span class="line">       27000 .rsrc</span><br><span class="line">       C2000 .text</span><br><span class="line">        1000 _RDATA</span><br><span class="line">        1000 malloc_h</span><br></pre></td></tr></table></figure>
@@ -186,23 +192,23 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="type">void</span> <span class="title function_">SymSetOptions</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="type">void</span> <span class="title function_">SymSetSearchPathW</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="type">void</span> <span class="title function_">SymCleanup</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="type">void</span> <span class="title function_">SymFromAddr</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="type">void</span> <span class="title function_">SymGetSearchPathW</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="type">void</span> <span class="title function_">SymGetLineFromAddr64</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="type">void</span> <span class="title function_">SymInitialize</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>可以看见，成功了</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005123101288.png" alt="image-20241005123101288"></p>
+<p><img src="https://s2.loli.net/2024/10/08/td4nVZsrB8F1km2.png" alt="image-20241005123101288.png"></p>
 <p>像这种一次执行的的Dll劫持，就适合配合其他的工具来进行上线</p>
 <h3 id="需要注意的几个问题"><a href="#需要注意的几个问题" class="headerlink" title="需要注意的几个问题"></a>需要注意的几个问题</h3><p>这样进行劫持，还是有可能会让我们的程序没有办法正常运行，因为我们链上了一个原本不存在的dll，这样<strong>整个程序的执行流可能还是会有改变</strong>，程序会执行进入一个我们未知的分支，这就主要看我们测试的结果了，在慢慢的积累中，可以自己找到一些动静小，也基本不影响原执行流的dll</p>
 <p>这里给一个网站<a target="_blank" rel="noopener" href="https://hijacklibs.net/">https://hijacklibs.net/</a></p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005123850111.png" alt="image-20241005123850111"></p>
+<p><img src="https://s2.loli.net/2024/10/08/vpKEQe5jo9HGMJr.png" alt="image-20241005123850111.png"></p>
 <p>第二个要注意的问题，就是修改导出表处碰见的的可能的第二种报错，那就是导出表函数和dll名不匹配</p>
 <p>再拿刚刚的dbghelp举例，我们把dbghelp.dll改为CRYPTBASE.DLL</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005123924761.png" alt="image-20241005123924761"></p>
+<p><img src="https://s2.loli.net/2024/10/08/xQtoz1Hnjk2e4Ey.png" alt="image-20241005123924761.png"></p>
 <p>这时候会有另一个报错，这说明我们函数的exe导入表和dll声明的函数不匹配，当然也可能有其他复杂的原因，我只是在这里记录一下</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005124016526.png" alt="image-20241005124016526"></p>
+<p><img src="https://s2.loli.net/2024/10/08/31niWGvScACzOZd.png" alt="image-20241005124016526.png"></p>
 <h1 id="劫持DLL不影响正常的执行流"><a href="#劫持DLL不影响正常的执行流" class="headerlink" title="劫持DLL不影响正常的执行流"></a>劫持DLL不影响正常的执行流</h1><p>我们上面介绍了会影响正常执行流的办法，那么有没有办法不影响程序执行呢</p>
 <p>答案同样是有，我们重新寻找适合的DLL</p>
 <p>这里我们以OneDrive为例，因为我们大部分的WIn的电脑上面都有这个软件，里面有一个Dll</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005192259924.png" alt="image-20241005192259924"></p>
+<p><img src="https://s2.loli.net/2024/10/08/7fl2NRCKB68eJOd.png" alt="image-20241005192259924.png"></p>
 <p>这个Dll我们通过ProcessMonitor观察发现，它不仅会从System32下加载，还会从我们的目录下加载</p>
 <p>这就给了我们机会</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005192519534.png" alt="image-20241005192519534"></p>
+<p><img src="https://s2.loli.net/2024/10/08/SaRkpjKO37dN2cI.png" alt="image-20241005192519534.png"></p>
 <p>像这样不影响执行流的Dll可能是在程序初始化的时候进行加载，然后在进行某个功能的时候再起作用</p>
 <p>这样我们就可以相对隐蔽的让别人的机子上线</p>
 <p><strong>这里强调一下，现在只是演示Dll劫持，免杀是没有做的，正常无论是传Dll，甚至是编译过程都会被拦</strong></p>
@@ -212,25 +218,25 @@
 <p>这里有个细节，<strong>里 WaitForSingleObject 的参数一定要写成0</strong>，代表异步进行，主线程接着跑，不等待子线程，也就 是shellcode线程。</p>
 <p>如果参数设为-1，那么线程将会“锁死”，这样的后果是shellcode有可能依赖进程主线程继续初始化才能 执行，而进程主线程在等待子线程，也就是shellcode执行的线程，会相互等待，所以我们这里参数为 0，或者不写 WaitForSingleObject 函数，子线程和主线程异步执行。</p>
 <p>shellcode就也不免杀，以后再说，先cs随便生成一个</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005193314323.png" alt="image-20241005193314323"></p>
+<p><img src="https://s2.loli.net/2024/10/08/XfhQsNgF5nEIATr.png" alt="image-20241005193314323.png"></p>
 <p>可以看见，OneDrive正确打开，也没有报错</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005193128413.png" alt="image-20241005193128413"></p>
+<p><img src="https://s2.loli.net/2024/10/08/EI2jwXpChTvRzdD.png" alt="image-20241005193128413.png"></p>
 <p>上线（这里两个OneDrive是机子卡了多按了一下，一个默认生成的exe是想测试一下能不能正常上线）</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005193207141.png" alt="image-20241005193207141"></p>
+<p><img src="https://s2.loli.net/2024/10/08/Zml84PWwHKkx6T7.png" alt="image-20241005193207141.png"></p>
 <h1 id="Dll转发"><a href="#Dll转发" class="headerlink" title="Dll转发"></a>Dll转发</h1><p>上面所提到的办法，我们往往要花时间去研究具体哪个Dll能够满足我们的要求，但是现在如果我们马上就想让一个Dll能被我们利用，那怎么办呢</p>
 <p>那就可以Dll转发，也就是在加载的时候，先加载我们的恶意Dll，然后转发到正常的Dll中，保证程序的正常执行</p>
 <p>这样我们可以选择的Dll范围就大了，不一定要一个一个在Process Monitor里面看，然后试，直接随便找一个</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005194205620.png" alt="image-20241005194205620"></p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005194317524.png" alt="image-20241005194317524"></p>
+<p><img src="https://s2.loli.net/2024/10/08/vwT3YpohMlgyWFQ.png" alt="image-20241005194205620.png"></p>
+<p><img src="https://s2.loli.net/2024/10/08/Njgy39FShVciRIY.png" alt="image-20241005194317524.png"></p>
 <p>用AheadLib生成代码</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195037253.png" alt="image-20241005195037253"></p>
+<p><img src="https://s2.loli.net/2024/10/08/2U5rQ43ZSbD7wJu.png" alt="image-20241005195037253.png"></p>
 <p>找到这段代码里面的Dllmain，补上我们的shellcodeloader</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195024999.png" alt="image-20241005195024999"></p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195116812.png" alt="image-20241005195116812"></p>
+<p><img src="https://s2.loli.net/2024/10/08/IA1aBpPK7HdCUqg.png" alt="image-20241005195024999.png"></p>
+<p><img src="https://s2.loli.net/2024/10/08/x97NbyUITDAm2oL.png" alt="image-20241005195116812.png"></p>
 <p>把原Dll改为我们在AheadLib里改的名字（一般为原名＋Org），然后放到一个文件夹里面，如果要验证这个转发，最好把上面原来的Dll劫持给删了</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195421119.png" alt="image-20241005195421119"></p>
+<p><img src="https://s2.loli.net/2024/10/08/gMq7IsGLHTEOxrB.png" alt="image-20241005195421119.png"></p>
 <p>新的，上线成功</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241005195532872.png" alt="image-20241005195532872"></p>
+<p><img src="https://s2.loli.net/2024/10/08/ulIH7d2QJ13rKzM.png" alt="image-20241005195532872.png"></p>
 
   </div>
 </article>
@@ -263,15 +269,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&text=Dll劫持"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&is_video=false&description=Dll劫持"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Dll劫持&body=Check out this article: http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&title=Dll劫持"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Dll%E5%8A%AB%E6%8C%81/&name=Dll劫持&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
