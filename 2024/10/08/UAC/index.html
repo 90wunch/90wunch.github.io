@@ -8,26 +8,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="UAC白名单挖掘用户帐户控制(User Account Control)是Windows Vista（及更高版本操作系统）中一组新的基础结构技 术，可以帮助阻止恶意程序（有时也称为“恶意软件”）损坏系统，同时也可以帮助组织部署更易于管理 的平台 使用UAC，应用程序和任务总是在非管理员帐户的安全上下文中运行，但管理员专门给系统授予管理员 级别的访问权限时除外。UAC会阻止未经授权应用程序的自动安装">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="UAC">
 <meta property="og:url" content="http://example.com/2024/10/08/UAC/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="UAC白名单挖掘用户帐户控制(User Account Control)是Windows Vista（及更高版本操作系统）中一组新的基础结构技 术，可以帮助阻止恶意程序（有时也称为“恶意软件”）损坏系统，同时也可以帮助组织部署更易于管理 的平台 使用UAC，应用程序和任务总是在非管理员帐户的安全上下文中运行，但管理员专门给系统授予管理员 级别的访问权限时除外。UAC会阻止未经授权应用程序的自动安装">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002160839566.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002190357063.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002191236923.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002210139121.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002205338279.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002205633181.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002210212850.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002224655693.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241003164954753.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241003165349834.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/asxCoH3eTSGlV98.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/D4N8WOwqcGgfHS1.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/T9LZ8CusGi4fcxN.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/PYb54usoXANHGnD.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/ZVIWU7wNAaLn5dR.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/gs7bpinuI5xayGV.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/eyzqp8rofDFUGxa.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/nD6ej2sYlSIzFOq.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/OwgFHt79R4UyjxC.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/35eWH4dnoXOlE7j.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/j9QH2MIRZ38Avlx.png">
 <meta property="article:published_time" content="2024-10-08T03:50:54.560Z">
-<meta property="article:modified_time" content="2024-10-03T09:00:12.459Z">
+<meta property="article:modified_time" content="2024-10-08T15:11:18.284Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="标签">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002160839566.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/08/asxCoH3eTSGlV98.png">
     
     
         
@@ -47,7 +49,7 @@
         
     
     <!-- title -->
-    <title>Hexo</title>
+    <title>UAC</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -98,15 +100,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/UAC/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/UAC/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/UAC/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/UAC/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/UAC/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/UAC/&text=UAC"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/UAC/&is_video=false&description=UAC"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=UAC&body=Check out this article: http://example.com/2024/10/08/UAC/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/UAC/&name=UAC&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -123,7 +125,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        UAC
     </h1>
 
 
@@ -139,6 +141,11 @@
 
 
       
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%A0%87%E7%AD%BE/" rel="tag">标签</a>
+    </div>
+
 
     </div>
   </header>
@@ -151,7 +158,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aslnvoker 默认权限</span><br><span class="line">highestAvailable 最高权限</span><br><span class="line">requireAdministrator 必须是管理员权限</span><br></pre></td></tr></table></figure>
 
 <p>我们可以在链接器-&gt;清单文件里面找到UAC的执行级别，更改执行级别</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002160839566.png" alt="image-20241002160839566"></p>
+<p><img src="https://s2.loli.net/2024/10/08/asxCoH3eTSGlV98.png" alt="image-20241002160839566.png"></p>
 <h2 id="寻找UAC白名单文件"><a href="#寻找UAC白名单文件" class="headerlink" title="寻找UAC白名单文件"></a>寻找UAC白名单文件</h2><p>我们需要的UAC程序需要满足以下几个条件</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 程序的manifest标识的配置属性 autoElevate 为 <span class="literal">true</span></span><br><span class="line"><span class="number">2.</span> 程序不弹出UAC弹窗</span><br><span class="line"><span class="number">3.</span> 从注册表里查询Shell\Open\command键值对</span><br></pre></td></tr></table></figure>
 
@@ -172,29 +179,29 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">c:\windows\system32\bthudtask.exe</span><br><span class="line">c:\windows\system32\changepk.exe</span><br><span class="line">c:\windows\system32\ComputerDefaults.exe</span><br><span class="line">c:\windows\system32\dccw.exe</span><br><span class="line">c:\windows\system32\dcomcnfg.exe</span><br><span class="line">c:\windows\system32\DeviceEject.exe</span><br><span class="line">c:\windows\system32\DeviceProperties.exe</span><br><span class="line">c:\windows\system32\djoin.exe</span><br><span class="line">c:\windows\system32\easinvoker.exe</span><br><span class="line">c:\windows\system32\EASPolicyManagerBrokerHost.exe</span><br><span class="line">c:\windows\system32\eudcedit.exe</span><br><span class="line">c:\windows\system32\eventvwr.exe</span><br><span class="line">c:\windows\system32\fodhelper.exe</span><br><span class="line">c:\windows\system32\fsquirt.exe</span><br><span class="line">c:\windows\system32\immersivetpmvscmgrsvr.exe</span><br><span class="line">c:\windows\system32\iscsicli.exe</span><br><span class="line">c:\windows\system32\iscsicpl.exe</span><br><span class="line">c:\windows\system32\lpksetup.exe</span><br><span class="line">c:\windows\system32\MSchedExe.exe</span><br><span class="line">c:\windows\system32\msconfig.exe</span><br><span class="line">c:\windows\system32\msra.exe</span><br><span class="line">c:\windows\system32\MultiDigiMon.exe</span><br><span class="line">c:\windows\system32\newdev.exe</span><br><span class="line">c:\windows\system32\odbcad32.exe</span><br><span class="line">c:\windows\system32\PasswordOnWakeSettingFlyout.exe</span><br><span class="line">c:\windows\system32\recdisc.exe</span><br><span class="line">c:\windows\system32\rrinstaller.exe</span><br><span class="line">c:\windows\system32\shrpubw.exe</span><br><span class="line">c:\windows\system32\slui.exe</span><br><span class="line">c:\windows\system32\Sysprep\sysprep.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesAdvanced.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesComputerName.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesDataExecutionPrevention.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesHardware.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesPerformance.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesProtection.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesRemote.exe</span><br><span class="line">c:\windows\system32\SystemSettingsAdminFlows.exe</span><br><span class="line">c:\windows\system32\SystemSettingsRemoveDevice.exe</span><br><span class="line">c:\windows\system32\Taskmgr.exe</span><br><span class="line">c:\windows\system32\tcmsetup.exe</span><br><span class="line">c:\windows\system32\TpmInit.exe</span><br><span class="line">c:\windows\system32\WindowsUpdateElevatedInstaller.exe</span><br><span class="line">c:\windows\system32\WSReset.exe</span><br><span class="line">c:\windows\system32\wusa.exe</span><br></pre></td></tr></table></figure>
 
 <h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>这里我们还是以ComputerDefaults.exe为例，我们使用Process Monitor去监视程序启动的事件，在启动的一瞬间我们可以看见出现了很多事件</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002190357063.png" alt="image-20241002190357063"></p>
+<p><img src="https://s2.loli.net/2024/10/08/D4N8WOwqcGgfHS1.png" alt="image-20241002190357063.png"></p>
 <p>设置过滤条件，这里我们需要寻找的是RegOpenKey，因为它可以打开注册表项，继承我们软件的权限</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LSTATUS <span class="title function_">RegOpenKeyA</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in]           HKEY   hKey,</span></span><br><span class="line"><span class="params">  [in, optional] LPCSTR lpSubKey,</span></span><br><span class="line"><span class="params">  [out]          PHKEY  phkResult</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
 
 <p>这里也就对应了我们上面要求的第三点，<strong>3. 从注册表里查询Shell\Open\command键值对</strong>，因为这样一个打开注册表的操作，能帮我们起一个带权限的cmd，向下继续搜索</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002191236923.png" alt="image-20241002191236923"></p>
+<p><img src="https://s2.loli.net/2024/10/08/T9LZ8CusGi4fcxN.png" alt="image-20241002191236923.png"></p>
 <p>这里有一个小tips，我们寻找键值还有一个注意点，最好寻找Result处为Name No Found的键值，因为如果我们找到了一个Success的键值，证明这是被程序正常访问的，那么我们对其进行修改就很有可能会影响到程序正常启动</p>
 <p>我们可以看程序查找dll的完整路径HKCU\Software\Classes\ms-settings\Shell\Open\command</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002210139121.png" alt="image-20241002210139121"></p>
+<p><img src="https://s2.loli.net/2024/10/08/PYb54usoXANHGnD.png" alt="image-20241002210139121.png"></p>
 <p>除了HKCU其他几个键值表修改要管理员权限</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002205338279.png" alt="image-20241002205338279"></p>
+<p><img src="https://s2.loli.net/2024/10/08/ZVIWU7wNAaLn5dR.png" alt="image-20241002205338279.png"></p>
 <p>我们按照路径找，但是在路径里面只能找到classes这一级</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002205633181.png" alt="image-20241002205633181"></p>
+<p><img src="https://s2.loli.net/2024/10/08/gs7bpinuI5xayGV.png" alt="image-20241002205633181.png"></p>
 <p>所以我们新建剩下的表项</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002210212850.png" alt="image-20241002210212850"></p>
+<p><img src="https://s2.loli.net/2024/10/08/eyzqp8rofDFUGxa.png" alt="image-20241002210212850.png"></p>
 <p>不过我做这个复现的时候，貌似已经修了</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002224655693.png" alt="image-20241002224655693"></p>
+<p><img src="https://s2.loli.net/2024/10/08/nD6ej2sYlSIzFOq.png" alt="image-20241002224655693.png"></p>
 <p>为什么知道修了呢，我们所需的DelegateExecute在我的win版本中</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241003164954753.png" alt="image-20241003164954753"></p>
+<p><img src="https://s2.loli.net/2024/10/08/OwgFHt79R4UyjxC.png" alt="image-20241003164954753.png"></p>
 <p>以及我的虚拟机版本中</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241003165349834.png" alt="image-20241003165349834"></p>
+<p><img src="https://s2.loli.net/2024/10/08/35eWH4dnoXOlE7j.png" alt="image-20241003165349834.png"></p>
 <p>相关注册表的值已经由HKCU改为了HKCR，这意味着我们在执行RegQueryValue时需要使用更高的权限，这就失去了UAC注册表劫持来提权的意义</p>
-<p>![2b720574465180445fd8468c34bf2c4](C:\Users\su\Documents\WeChat Files\wxid_pfbd0i5dynxu22\FileStorage\Temp\2b720574465180445fd8468c34bf2c4.png)</p>
+<p><img src="https://s2.loli.net/2024/10/08/j9QH2MIRZ38Avlx.png" alt="2b720574465180445fd8468c34bf2c4.png"></p>
 <p>但是思路还是有参考价值的</p>
 <p><strong>找到能够指向文件路径并打开的键值，然后修改它的值指向我们的恶意程序</strong></p>
 <p>这里还是给出一个老demo作为结束</p>
@@ -232,15 +239,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/UAC/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/UAC/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/UAC/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/UAC/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/UAC/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/UAC/&text=UAC"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/UAC/&is_video=false&description=UAC"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=UAC&body=Check out this article: http://example.com/2024/10/08/UAC/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/UAC/&title=UAC"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/UAC/&name=UAC&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

@@ -8,19 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="Dll注入关键APICreateRemoteThread123456789HANDLE CreateRemoteThread(HANDLE hProcess,LPSECURITY_ATTRIBUTES lpThreadAttributes,SIZE_T dwStackSize,LPTHREAD_START_ROUTINE lpStartAddress,LPVOID lpParameter,DWOR">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="DLL注入">
 <meta property="og:url" content="http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Dll注入关键APICreateRemoteThread123456789HANDLE CreateRemoteThread(HANDLE hProcess,LPSECURITY_ATTRIBUTES lpThreadAttributes,SIZE_T dwStackSize,LPTHREAD_START_ROUTINE lpStartAddress,LPVOID lpParameter,DWOR">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925105516683.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925110038351.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925110423385.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/GlHT47URiMhXSWg.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/VmhQ938UeZ2zkBH.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/CorOdWyz1NjtZQf.png">
 <meta property="article:published_time" content="2024-10-08T03:50:54.554Z">
-<meta property="article:modified_time" content="2024-09-25T03:04:36.646Z">
+<meta property="article:modified_time" content="2024-10-08T14:38:01.319Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="标签">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925105516683.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/08/GlHT47URiMhXSWg.png">
     
     
         
@@ -40,7 +41,7 @@
         
     
     <!-- title -->
-    <title>Hexo</title>
+    <title>DLL注入</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -91,15 +92,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&text=DLL注入"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&is_video=false&description=DLL注入"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=DLL注入&body=Check out this article: http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&name=DLL注入&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -116,7 +117,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        DLL注入
     </h1>
 
 
@@ -132,6 +133,11 @@
 
 
       
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%A0%87%E7%AD%BE/" rel="tag">标签</a>
+    </div>
+
 
     </div>
   </header>
@@ -155,11 +161,11 @@
 <h3 id="完整demo"><a href="#完整demo" class="headerlink" title="完整demo"></a>完整demo</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;TlHelp32.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">DWORD <span class="title function_">GetProcessPID</span><span class="params">(LPCTSTR lpProcessName)</span></span><br><span class="line">&#123;</span><br><span class="line">DWORD Ret = <span class="number">0</span>;</span><br><span class="line">PROCESSENTRY32 p32;</span><br><span class="line">HANDLE lpSnapshot = ::CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span> (lpSnapshot == INVALID_HANDLE_VALUE)</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;GetSnapshotError:%d&quot;</span>,::GetLastError());</span><br><span class="line"><span class="keyword">return</span> Ret;</span><br><span class="line">&#125;</span><br><span class="line">p32.dwSize = <span class="keyword">sizeof</span>(PROCESSENTRY32);</span><br><span class="line">::Process32First(lpSnapshot, &amp;p32);</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line"><span class="keyword">if</span> (!lstrcmp(p32.szExeFile, lpProcessName))</span><br><span class="line">&#123;</span><br><span class="line">Ret = p32.th32ProcessID;</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125; <span class="keyword">while</span> (::Process32Next(lpSnapshot, &amp;p32));</span><br><span class="line">::CloseHandle(lpSnapshot);</span><br><span class="line"><span class="keyword">return</span> Ret;</span><br><span class="line">&#125;</span><br><span class="line">	DWORD <span class="title function_">RemoteThreadInject</span><span class="params">(DWORD Pid,LPCWSTR DllName)</span>&#123;</span><br><span class="line">	</span><br><span class="line">	DWORD size = <span class="number">0</span>;</span><br><span class="line">	DWORD DllAddr = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//1.打开进程</span></span><br><span class="line">	HANDLE hprocess = OpenProcess(PROCESS_ALL_ACCESS,FALSE,Pid);</span><br><span class="line">	<span class="keyword">if</span> (hprocess == <span class="literal">NULL</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;OpenProcessError:%d&quot;</span>,GetLastError());</span><br><span class="line">			<span class="keyword">return</span> FALSE;</span><br><span class="line">		&#125;</span><br><span class="line">		size = (wcslen(DllName)+<span class="number">1</span>)*<span class="keyword">sizeof</span>(TCHAR);</span><br><span class="line">		<span class="comment">//2.申请空间</span></span><br><span class="line">		LPVOID pAllocMemory = VirtualAllocEx(hprocess,<span class="literal">NULL</span>,size,MEM_COMMIT,PAGE_READWRITE);</span><br><span class="line">		<span class="keyword">if</span> (pAllocMemory == <span class="literal">NULL</span>)&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;VirtualAllocExError:%d&quot;</span>,GetLastError());</span><br><span class="line">				<span class="keyword">return</span> FALSE;</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="comment">//3.写入内存</span></span><br><span class="line">		BOOL write = WriteProcessMemory(hprocess,pAllocMemory,DllName,size,<span class="literal">NULL</span>);</span><br><span class="line">		<span class="keyword">if</span> (pAllocMemory == <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;WriteProcessMemoryError:%d&quot;</span>,GetLastError());</span><br><span class="line">				<span class="keyword">return</span> FALSE;</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="comment">//4.获取LoadLibrary-kenrnel32.dll</span></span><br><span class="line">		FARPROC pThread = GetProcAddress(GetModuleHandle(<span class="string">L&quot;kernel32.dll&quot;</span>),<span class="string">&quot;LoadLibraryW&quot;</span>);</span><br><span class="line">		LPTHREAD_START_ROUTINE addr = (LPTHREAD_START_ROUINE)pThread;</span><br><span class="line">		<span class="comment">//5.创建线程</span></span><br><span class="line">		HANDLE hThread = CreateRemoteThread(hprocess, <span class="literal">NULL</span>, <span class="number">0</span>, addr, pAllocMemory,<span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line">		<span class="keyword">if</span> (hThread == <span class="literal">NULL</span>)&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;CreateRemoteThreadError:%d&quot;</span>,GetLastError());</span><br><span class="line">				<span class="keyword">return</span> FALSE;</span><br><span class="line">		&#125;		</span><br><span class="line">		<span class="comment">//6.等待线程函数结束</span></span><br><span class="line">		WaitForSingleObject(hThread,<span class="number">-1</span>);</span><br><span class="line">		<span class="comment">//7.释放DLL空间</span></span><br><span class="line">		VirtualFreeEx(hprocess,pAllocMemory,size,MEM_DECOMMIT);</span><br><span class="line">		<span class="comment">//8.关闭句柄</span></span><br><span class="line">		CloseHandle(hprocess);</span><br><span class="line">		<span class="keyword">return</span> TRUE;	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">	    <span class="comment">//根据进程名获得PID</span></span><br><span class="line">			DWORD PID  = GetProcessPID(<span class="string">L&quot;notepad.exe&quot;</span>);</span><br><span class="line">			<span class="comment">//根据进程名和DLL的路径名来加载，这里主要是因为我们自己写的dll是不存在system32里面的所以要给绝对路径)</span></span><br><span class="line">			RemoteThreadInject(PID, <span class="string">L&quot;C:\\Users\\test\\Desktop\\x64.dll&quot;</span>);</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="可能要注意的问题"><a href="#可能要注意的问题" class="headerlink" title="可能要注意的问题"></a>可能要注意的问题</h2><h3 id="编码问题"><a href="#编码问题" class="headerlink" title="编码问题"></a>编码问题</h3><p>VS2022中可以指定我们自己的编码方式</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925105516683.png" alt="image-20240925105516683"></p>
+<p><img src="https://s2.loli.net/2024/10/08/GlHT47URiMhXSWg.png" alt="image-20240925105516683.png"></p>
 <p>现在VS生成的项目一般统一使用Unicode，但是统一成Unicode之后，虽然解决了乱码问题，但是在文本上编码需要比ascii多一倍的空间</p>
 <p>所以，<strong>如果是文本上纯英文，那么使用ascii就行了</strong></p>
 <p>VS里面有两种API，一种是A系，一种是W系。这两种的区别就是其基本的编码方式，在项目中会帮助你自动扩展到指定的系中</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925110038351.png" alt="image-20240925110038351"></p>
+<p><img src="https://s2.loli.net/2024/10/08/VmhQ938UeZ2zkBH.png" alt="image-20240925110038351.png"></p>
 <p>如果想写的通用一点，可以使用__T，在使用之前要声明tchar.h</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line">MessageBox(<span class="number">0</span>,_T(<span class="string">&quot;1&quot;</span>),_T(<span class="string">&quot;1&quot;</span>),MB_OK);</span><br></pre></td></tr></table></figure>
 
@@ -169,7 +175,7 @@
 
 <h3 id="运行库问题"><a href="#运行库问题" class="headerlink" title="运行库问题"></a>运行库问题</h3><p>在本地跑没有问题的程序，在虚拟机或者其他环境跑有问题，比如报错缺少vcruntime140d.dll</p>
 <p>这是因为目标环境可能没有装vs，这时候就需要我们把dll包在我们编译的环境里面</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925110423385.png" alt="image-20240925110423385"></p>
+<p><img src="https://s2.loli.net/2024/10/08/CorOdWyz1NjtZQf.png" alt="image-20240925110423385.png"></p>
 <p>多线程模式下会包裹更加全面的dll文件，而默认的多线程调试模式下则不会，为了确保我们的程序能够正确的在其他人的电脑上面生成</p>
 
   </div>
@@ -203,15 +209,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&text=DLL注入"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&is_video=false&description=DLL注入"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=DLL注入&body=Check out this article: http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&title=DLL注入"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Dll%E6%B3%A8%E5%85%A5/&name=DLL注入&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

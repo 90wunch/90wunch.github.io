@@ -8,31 +8,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="Windows异常异常执行流程12CPU检测到异常 -&gt; 查中断表执行处理函数 -&gt; CommonDispatchException -&gt; KiDispatchException -&gt; KiUserExceptionDispatcher -&gt; RtlDispatchException -&gt; VEH -&gt; SEH  只有找不到异常函数，才会抛出异常给用户 异">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Windows异常">
 <meta property="og:url" content="http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Windows异常异常执行流程12CPU检测到异常 -&gt; 查中断表执行处理函数 -&gt; CommonDispatchException -&gt; KiDispatchException -&gt; KiUserExceptionDispatcher -&gt; RtlDispatchException -&gt; VEH -&gt; SEH  只有找不到异常函数，才会抛出异常给用户 异">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930211515159.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930220423360.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930220539858.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930220758471.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930225055008.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930225620306.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930231653462.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930232020745.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930232144015.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930232858261.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001085621731.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001091236509.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001091328186.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001092427860.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001093442881.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/ax2rSlL7RuWBDHV.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/8oMWmBVnCRu6hyZ.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/PeycxoRdVfKjrNS.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/pBYvdV2DZmsE6UP.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/NlETqkpXgzFuWmw.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/VkhEqpK9iwQUSbR.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/wtCLfel3JjAFMbo.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/i4QRr1ktcs2uKzV.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/aQhwPIdg9lNVTeK.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/cn5Q2kV6EslhZqA.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/qcxrn6CEGpJmfYo.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/2KDJf9w6WM1PekA.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/iodZC1QFmvhDRTO.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/E583RvUSe1HJCfm.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/Jc1AqTiWFVLrRHz.png">
 <meta property="article:published_time" content="2024-10-08T03:50:54.563Z">
-<meta property="article:modified_time" content="2024-10-01T01:35:10.865Z">
+<meta property="article:modified_time" content="2024-10-08T15:22:14.484Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="标签">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930211515159.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/08/ax2rSlL7RuWBDHV.png">
     
     
         
@@ -52,7 +53,7 @@
         
     
     <!-- title -->
-    <title>Hexo</title>
+    <title>Windows异常</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -103,15 +104,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&text=Windows异常"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&is_video=false&description=Windows异常"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Windows异常&body=Check out this article: http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&name=Windows异常&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -128,7 +129,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        Windows异常
     </h1>
 
 
@@ -144,6 +145,11 @@
 
 
       
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%A0%87%E7%AD%BE/" rel="tag">标签</a>
+    </div>
+
 
     </div>
   </header>
@@ -158,19 +164,19 @@
 <h3 id="CPU产生异常"><a href="#CPU产生异常" class="headerlink" title="CPU产生异常"></a>CPU产生异常</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.CPU指令检测到异常(例：除0)</span><br><span class="line">2.查IDT表，执行中断处理函数</span><br><span class="line">3.CommonDispatchException</span><br><span class="line">4.KiDispatchException</span><br></pre></td></tr></table></figure>
 
 <p>先可以找到IDT表的零号中断，我们可以在ntoskrnl.exe文件中找到这个结构</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930211515159.png" alt="image-20240930211515159"></p>
+<p><img src="https://s2.loli.net/2024/10/08/ax2rSlL7RuWBDHV.png" alt="image-20240930211515159.png"></p>
 <p>一路向下跟，我们找到了上面所提到的CommonDispatchException函数</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930220423360.png" alt="image-20240930220423360"></p>
-<p>可以看见CommonDispatchException主要是把一些异常的信息存储到了自己的结构体_EXCEPTION_RECORD里面<img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930220539858.png" alt="image-20240930220539858"></p>
+<p><img src="https://s2.loli.net/2024/10/08/8oMWmBVnCRu6hyZ.png" alt="image-20240930220423360.png"></p>
+<p>可以看见CommonDispatchException主要是把一些异常的信息存储到了自己的结构体_EXCEPTION_RECORD里面<img src="https://s2.loli.net/2024/10/08/PeycxoRdVfKjrNS.png" alt="image-20240930220539858.png"></p>
 <p>这个结构体在微软中的定义</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">EXCEPTION_RECORD</span> &#123;</span></span><br><span class="line">  DWORD                    ExceptionCode;<span class="comment">//异常代码</span></span><br><span class="line">  DWORD                    ExceptionFlags;<span class="comment">//异常状态</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">EXCEPTION_RECORD</span> *<span class="title">ExceptionRecord</span>;</span><span class="comment">//下一个异常地址</span></span><br><span class="line">  PVOID                    ExceptionAddress;<span class="comment">//异常发生地址</span></span><br><span class="line">  DWORD                    NumberParameters;<span class="comment">//附加参数个数</span></span><br><span class="line">  ULONG_PTR                ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];<span class="comment">//附加参数指针</span></span><br><span class="line">&#125; EXCEPTION_RECORD;</span><br></pre></td></tr></table></figure>
 
 <p>最后通过KiDispatchException 去找到异常处理函数</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930220758471.png" alt="image-20240930220758471"></p>
+<p><img src="https://s2.loli.net/2024/10/08/pBYvdV2DZmsE6UP.png" alt="image-20240930220758471.png"></p>
 <p>回到之前调用CommonDispatchException的时候，代码往寄存器里面存入了一个0C0000094h</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930225055008.png" alt="image-20240930225055008"></p>
+<p><img src="https://s2.loli.net/2024/10/08/NlETqkpXgzFuWmw.png" alt="image-20240930225055008.png"></p>
 <p>根据查询表可知，这是一个除零的异常，在三环中一般也就是这个异常，其他的例如溢出都在零环内</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930225620306.png" alt="image-20240930225620306"></p>
+<p><img src="https://s2.loli.net/2024/10/08/VkhEqpK9iwQUSbR.png" alt="image-20240930225620306.png"></p>
 <p>另一个ebx里面被赋予了一个[ebp+0x68]的值，这里涉及三环进零环，是有换栈的操作的，ebp指向的是一个Trap_Frame，这里面有很多换栈的操作</p>
 <p>（这里我是以xp为例的，64为的Trap_Frame结构不一样）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kd&gt; dt _KTrap_Frame</span><br><span class="line">nt!_KTRAP_FRAME</span><br><span class="line">   +0x000 DbgEbp           : Uint4B</span><br><span class="line">   +0x004 DbgEip           : Uint4B</span><br><span class="line">   +0x008 DbgArgMark       : Uint4B</span><br><span class="line">   +0x00c DbgArgPointer    : Uint4B</span><br><span class="line">...........................................</span><br><span class="line">   +0x064 ErrCode          : Uint4B</span><br><span class="line">   +0x068 Eip              : Uint4B</span><br><span class="line">   +0x06c SegCs            : Uint4B</span><br><span class="line">   ...............................</span><br></pre></td></tr></table></figure>
@@ -182,30 +188,30 @@
 <h3 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、CPU指令检测到异常</span><br><span class="line">2、查IDT表，执行中断处理函数</span><br><span class="line">3、调用 CommonDispatchException (构建 EXCEPTION_RECORD )</span><br><span class="line">4、KiDispatchException(分发异常：目的是找到异常的处理函数)</span><br></pre></td></tr></table></figure>
 
 <p><strong>保存基本的TrapFrame结构</strong></p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930231653462.png" alt="image-20240930231653462"></p>
+<p><img src="https://s2.loli.net/2024/10/08/wtCLfel3JjAFMbo.png" alt="image-20240930231653462.png"></p>
 <p><strong>保存出现异常的相关参数</strong></p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930232020745.png" alt="image-20240930232020745"></p>
+<p><img src="https://s2.loli.net/2024/10/08/i4QRr1ktcs2uKzV.png" alt="image-20240930232020745.png"></p>
 <p><strong>判断是否来自三环的异常</strong></p>
 <p>这里0x6c指向的是SegCs </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kd&gt; dt _KTrap_Frame</span><br><span class="line">nt!_KTRAP_FRAME</span><br><span class="line"> ..........................</span><br><span class="line">   +0x054 Edi              : Uint4B</span><br><span class="line">   +0x058 Esi              : Uint4B</span><br><span class="line">   +0x05c Ebx              : Uint4B</span><br><span class="line">   +0x060 Ebp              : Uint4B</span><br><span class="line">   +0x064 ErrCode          : Uint4B</span><br><span class="line">   +0x068 Eip              : Uint4B</span><br><span class="line">   +0x06c SegCs            : Uint4B</span><br><span class="line">   ...................................</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930232144015.png" alt="image-20240930232144015"></p>
+<p><img src="https://s2.loli.net/2024/10/08/aQhwPIdg9lNVTeK.png" alt="image-20240930232144015.png"></p>
 <p>如果是三环的异常则一定是除零异常</p>
 <p><strong>调用KiDispatchException分发异常</strong></p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930232858261.png" alt="image-20240930232858261"></p>
+<p><img src="https://s2.loli.net/2024/10/08/cn5Q2kV6EslhZqA.png" alt="image-20240930232858261.png"></p>
 <h2 id="模拟异常"><a href="#模拟异常" class="headerlink" title="模拟异常"></a>模拟异常</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CxxThrowException</span><br><span class="line">(KERNEL32.DLL)RaiseException(DWORD dwExceptionCode, DWORD dwExceptionFlags,</span><br><span class="line">DWORD nNumberOfArguments, const ULONG_PTR *lpArguments)</span><br><span class="line">NTDLL.DLL!RtlRaiseException()</span><br><span class="line">NT!NtRaiseException</span><br><span class="line">NT!KiRaiseException</span><br></pre></td></tr></table></figure>
 
 <p>写一个带throw的demo</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span> <span class="comment">// 包含输入输出流用于调试信息</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 捕获并处理异常</span></span><br><span class="line">    try &#123;</span><br><span class="line">        throw <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (<span class="type">int</span> e) &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;Exception caught: &quot;</span> &lt;&lt; e &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span> &#123;</span><br><span class="line">    test();</span><br><span class="line">    getchar(); <span class="comment">// 等待用户输入，防止程序立即退出</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001085621731.png" alt="image-20241001085621731"></p>
+<p><img src="https://s2.loli.net/2024/10/08/qcxrn6CEGpJmfYo.png" alt="image-20241001085621731.png"></p>
 <p>进入ida中分析，看见从vcruntime.dll中导入了这个函数, 继续向下跟，找到RaiseException</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001091236509.png" alt="image-20241001091236509"></p>
+<p><img src="https://s2.loli.net/2024/10/08/2KDJf9w6WM1PekA.png" alt="image-20241001091236509.png"></p>
 <p>继续进入Kernel32跟下去</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001091328186.png" alt="image-20241001091328186"></p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001092427860.png" alt="image-20241001092427860"></p>
+<p><img src="https://s2.loli.net/2024/10/08/iodZC1QFmvhDRTO.png" alt="image-20241001091328186.png"></p>
+<p><img src="https://s2.loli.net/2024/10/08/E583RvUSe1HJCfm.png" alt="image-20241001092427860.png"></p>
 <p>讲了这么多，就是想说在进入零环前在三环保存的Context会被保存为Trap_Frame</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001093442881.png" alt="image-20241001093442881"></p>
+<p><img src="https://s2.loli.net/2024/10/08/Jc1AqTiWFVLrRHz.png" alt="image-20241001093442881.png"></p>
 
   </div>
 </article>
@@ -238,15 +244,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&text=Windows异常"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&is_video=false&description=Windows异常"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Windows异常&body=Check out this article: http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&title=Windows异常"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/Windows%E5%BC%82%E5%B8%B8/&name=Windows异常&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

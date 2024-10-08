@@ -8,21 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="SSDT表系统服务描述符表 这里以Windows XP SP3为例 123456789kd&gt; dd KeServiceDescriptorTable80553fa0  80502b8c 00000000 0000011c 8050300080553fb0  00000000 00000000 00000000 0000000080553fc0  00000000 00000000 00000">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="SSDT Hook">
 <meta property="og:url" content="http://example.com/2024/10/08/SSDT%20Hook/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="SSDT表系统服务描述符表 这里以Windows XP SP3为例 123456789kd&gt; dd KeServiceDescriptorTable80553fa0  80502b8c 00000000 0000011c 8050300080553fb0  00000000 00000000 00000000 0000000080553fc0  00000000 00000000 00000">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240929102131156.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240929103916872.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240929201012439.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240929201906035.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930093833367.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/oF7g4TOcQqKNv5x.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/TAhlueQiSCckn4I.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/czQJjmCqNRyDakw.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/kNweAqQWBZv34lL.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/kVGFhBgwJdCyPfH.png">
 <meta property="article:published_time" content="2024-10-08T03:50:54.559Z">
-<meta property="article:modified_time" content="2024-10-07T23:53:02.427Z">
+<meta property="article:modified_time" content="2024-10-08T15:04:42.994Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="标签">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240929102131156.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/08/oF7g4TOcQqKNv5x.png">
     
     
         
@@ -42,7 +43,7 @@
         
     
     <!-- title -->
-    <title>Hexo</title>
+    <title>SSDT Hook</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -93,15 +94,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/SSDT%20Hook/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/SSDT%20Hook/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/SSDT%20Hook/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/SSDT%20Hook/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/SSDT%20Hook/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/SSDT%20Hook/&text=SSDT Hook"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/SSDT%20Hook/&is_video=false&description=SSDT Hook"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SSDT Hook&body=Check out this article: http://example.com/2024/10/08/SSDT%20Hook/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/SSDT%20Hook/&name=SSDT Hook&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -118,7 +119,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        SSDT Hook
     </h1>
 
 
@@ -134,6 +135,11 @@
 
 
       
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%A0%87%E7%AD%BE/" rel="tag">标签</a>
+    </div>
+
 
     </div>
   </header>
@@ -155,8 +161,9 @@
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>我们来看一个函数OpenProcess是具体怎么调用的</p>
 <p><strong>tips：最好是什么编译环境，就在什么环境分析，xp上编的在xp上分析，win10上编的在win10上分析</strong></p>
 <p>可以看见，OpenProcess也是调用了kernel32.dll</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240929102131156.png" alt="image-20240929102131156"></p>
-<p>kernel32.dll里面看见了syscall的调用，调用号是0x7A<img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240929103916872.png" alt="image-20240929103916872"></p>
+<p><img src="https://s2.loli.net/2024/10/08/oF7g4TOcQqKNv5x.png" alt="image-20240929102131156.png"></p>
+<p>kernel32.dll里面看见了syscall的调用，调用号是0x7A</p>
+<p><img src="https://s2.loli.net/2024/10/08/TAhlueQiSCckn4I.png" alt="image-20240929103916872.png"></p>
 <p>这时候找到SSDT表</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">kd&gt; dd KeServiceDescriptorTable</span><br><span class="line"><span class="number">80553f</span>a0  <span class="number">80502b</span>8c <span class="number">00000000</span> <span class="number">0000011</span>c <span class="number">80503000</span></span><br><span class="line"><span class="number">80553f</span>b0  <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span></span><br><span class="line"><span class="number">80553f</span>c0  <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span></span><br><span class="line"><span class="number">80553f</span>d0  <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span></span><br><span class="line"><span class="number">80553f</span>e0  <span class="number">00002710</span> bf80c0b6 <span class="number">00000000</span> <span class="number">00000000</span></span><br><span class="line"><span class="number">80553f</span>f0  f8b67a80 f82ffb60 <span class="number">81b</span>e2928 <span class="number">806e2</span>f40</span><br><span class="line"><span class="number">80554000</span>  <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span> <span class="number">00000000</span></span><br><span class="line"><span class="number">80554010</span>  <span class="number">08909</span>a40 <span class="number">01</span>db1211 <span class="number">00000000</span> <span class="number">00000000</span></span><br></pre></td></tr></table></figure>
 
@@ -195,8 +202,8 @@
 <p>Cr3寄存器不同于其他寄存器，在所有的寄存器中，只有Cr3寄存器存储的地址是物理地址，其他寄存器 存储的都是线性地址</p>
 <p>Cr3寄存器所存储的物理地址指向了一个页目录表（Page-Directory Table，PDT），<strong>在Windows中，一个页的大小通常位4KB，即一个页（页目录表）可以存储1024个页目录表项（PDE）</strong></p>
 <p>同样，第二级为页表（PTT），每个页表的大小为4kb，即一个页表可以存储1024个页表项（PTE）</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240929201012439.png" alt="image-20240929201012439"></p>
-<h3 id="PDE-PTE"><a href="#PDE-PTE" class="headerlink" title="PDE&amp;PTE"></a>PDE&amp;PTE</h3><p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240929201906035.png" alt="image-20240929201906035"></p>
+<p><img src="https://s2.loli.net/2024/10/08/czQJjmCqNRyDakw.png" alt="image-20240929201012439.png"></p>
+<h3 id="PDE-PTE"><a href="#PDE-PTE" class="headerlink" title="PDE&amp;PTE"></a>PDE&amp;PTE</h3><p><img src="https://s2.loli.net/2024/10/08/kNweAqQWBZv34lL.png" alt="image-20240929201906035.png"></p>
 <p>通过上面这张图我们可以看见，在PDE或者PTE中，只有0位置为1，那么整个表才有效，1位，2位分别是读写位和特权位，分别表示属性可读可写和是否是特权用户</p>
 <h2 id="查看PDE和PTE"><a href="#查看PDE和PTE" class="headerlink" title="查看PDE和PTE"></a>查看PDE和PTE</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kd&gt; !process <span class="number">0</span> <span class="number">0</span></span><br><span class="line">**** NT ACTIVE PROCESS DUMP ****</span><br><span class="line">Failed to get VadRoot</span><br><span class="line">PROCESS <span class="number">821b</span>9830  SessionId: none  Cid: <span class="number">0004</span>    Peb: <span class="number">00000000</span>  ParentCid: <span class="number">0000</span></span><br><span class="line">    DirBase: <span class="number">00</span>aff000  ObjectTable: e1000cf8  HandleCount: <span class="number">243.</span></span><br><span class="line">    Image: System</span><br><span class="line"></span><br><span class="line">Failed to get VadRoot</span><br><span class="line">PROCESS <span class="number">82063360</span>  SessionId: none  Cid: <span class="number">0170</span>    Peb: <span class="number">7f</span>fd6000  ParentCid: <span class="number">0004</span></span><br><span class="line">    DirBase: <span class="number">08f</span>c0020  ObjectTable: e13e1510  HandleCount:  <span class="number">19.</span></span><br><span class="line">    Image: smss.exe</span><br></pre></td></tr></table></figure>
 
@@ -230,7 +237,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">if(RCR4 &amp; 0x00000020)</span><br><span class="line">&#123;//说明是2-9-9-12分页</span><br><span class="line">KdPrint((&quot;2-9-9-12分页 %p\n&quot;,RCR4));</span><br><span class="line">KdPrint((&quot;PTE1 %p\n&quot;,*(DWORD*)(0xC0000000 + ((HookFunAddr &gt;&gt; 9)</span><br><span class="line">&amp;0x007FFFF8))));</span><br><span class="line">*(DWORD64*)(0xC0000000 + ((HookFunAddr &gt;&gt; 9) &amp; 0x007FFFF8)) |= 0x02;</span><br><span class="line">KdPrint((&quot;PTE1 %p\n&quot;,*(DWORD*)(0xC0000000 + ((HookFunAddr &gt;&gt; 9)</span><br><span class="line">&amp;0x007FFFF8))));</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;//说明是10-10-12分页</span><br><span class="line">KdPrint((&quot;10-10-12分页\n&quot;));</span><br><span class="line">KdPrint((&quot;PTE1 %p\n&quot;,*(DWORD*)(0xC0000000 + ((HookFunAddr &gt;&gt; 10) &amp;</span><br><span class="line">0x003FFFFC))));</span><br><span class="line">*(DWORD*)(0xC0000000 + ((HookFunAddr &gt;&gt; 10) &amp; 0x003FFFFC)) |= 0x02;</span><br><span class="line">KdPrint((&quot;PTE2 %p\n&quot;,*(DWORD*)(0xC0000000 + ((HookFunAddr &gt;&gt; 10)</span><br><span class="line">&amp;0x003FFFFC))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="Cr0寄存器"><a href="#Cr0寄存器" class="headerlink" title="Cr0寄存器"></a>Cr0寄存器</h3><p>我们可以使用PsGetCurrentThread函数来获取当前KTHREAD的首地址，但是SSDT表所在的内存页的属性是只读，没有写入的权限，所以需要吧地址设置为可写入，这里使用Cr0来关闭寄存器的只读属性</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240930093833367.png" alt="image-20240930093833367"></p>
+<p><img src="https://s2.loli.net/2024/10/08/kVGFhBgwJdCyPfH.png" alt="image-20240930093833367.png"></p>
 <p>在这个寄存器中，重点关注三个标志位</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PE 是否启用保护模式，置1则启用。</span><br><span class="line">PG 是否使用分页模式，置1则开启分页模式, 此标志置1时，PE 标志也必须置1，否则CPU报异常。</span><br><span class="line">WP WP为1时，不能修改只读的内存页，WP为0时，可以修改只读的内存页。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -271,15 +278,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/SSDT%20Hook/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/SSDT%20Hook/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/SSDT%20Hook/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/SSDT%20Hook/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/SSDT%20Hook/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/SSDT%20Hook/&text=SSDT Hook"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/SSDT%20Hook/&is_video=false&description=SSDT Hook"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SSDT Hook&body=Check out this article: http://example.com/2024/10/08/SSDT%20Hook/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/SSDT%20Hook/&title=SSDT Hook"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/SSDT%20Hook/&name=SSDT Hook&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
