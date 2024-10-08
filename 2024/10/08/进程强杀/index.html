@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="进程强杀任务管理器是怎么结束一个进程的呢 它也是调用一个WINAPI，叫做TerminateProcess 1234BOOL TerminateProcess(  [in] HANDLE hProcess,  [in] UINT   uExitCode);  由于它也是一个三环的API，在面对杀软或者一些跑在0环的程序束手无策 12345678910111213141516171819202122">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="进程强杀任务管理器是怎么结束一个进程的呢 它也是调用一个WINAPI，叫做TerminateProcess 1234BOOL TerminateProcess(  [in] HANDLE hProcess,  [in] UINT   uExitCode);  由于它也是一个三环的API，在面对杀软或者一些跑在0环的程序束手无策 12345678910111213141516171819202122">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928123805405.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928124156652.png">
+<meta property="article:published_time" content="2024-10-08T03:50:54.569Z">
+<meta property="article:modified_time" content="2024-09-28T13:44:46.298Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928123805405.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Hexo</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80"><span class="toc-number">1.</span> <span class="toc-text">进程强杀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ZwTerminateProcess"><span class="toc-number">1.1.</span> <span class="toc-text">ZwTerminateProcess</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">寻找函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo%EF%BC%88x64%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">demo（x64）</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Hexo</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2024-10-08T03:50:54.569Z" itemprop="datePublished">2024-10-08</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="进程强杀"><a href="#进程强杀" class="headerlink" title="进程强杀"></a>进程强杀</h1><p>任务管理器是怎么结束一个进程的呢</p>
+<p>它也是调用一个WINAPI，叫做TerminateProcess</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">TerminateProcess</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in] HANDLE hProcess,</span></span><br><span class="line"><span class="params">  [in] UINT   uExitCode</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>由于它也是一个三环的API，在面对杀软或者一些跑在0环的程序束手无策</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">TerminateProcessById</span><span class="params">(DWORD processID)</span> &#123;</span><br><span class="line">    <span class="comment">// 打开进程，获得进程的句柄</span></span><br><span class="line">    HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, processID);</span><br><span class="line">    <span class="keyword">if</span> (hProcess == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;无法打开进程，错误代码: %lu\n&quot;</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 终止进程</span></span><br><span class="line">    <span class="keyword">if</span> (TerminateProcess(hProcess, <span class="number">0</span>)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;成功终止进程: %lu\n&quot;</span>, processID);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;无法终止进程，错误代码: %lu\n&quot;</span>, GetLastError());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关闭句柄</span></span><br><span class="line">    CloseHandle(hProcess);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;使用方法: %s &lt;进程ID&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>; <span class="comment">// 返回错误代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将参数转换为进程ID</span></span><br><span class="line">    DWORD processID = (DWORD)atoi(argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    TerminateProcessById(processID);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>随便写了个demo，用ida打开，发现它也是从kernel32中去导入</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928123805405.png" alt="image-20240928123805405"></p>
+<p>按照一般的winapi的规律，我们直接到ntdll去找相关api</p>
+<h2 id="ZwTerminateProcess"><a href="#ZwTerminateProcess" class="headerlink" title="ZwTerminateProcess"></a>ZwTerminateProcess</h2><p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928124156652.png" alt="image-20240928124156652"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NTSYSAPI NTSTATUS <span class="title function_">ZwTerminateProcess</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in, optional] HANDLE   ProcessHandle,</span></span><br><span class="line"><span class="params">  [in]           NTSTATUS ExitStatus</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这里微软专门强调了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果在用户模式下调用此函数，则应使用名称“NtTerminateProcess”而不是“ZwTerminateProcess”。</span><br></pre></td></tr></table></figure>
+
+<p>查阅资料，在ntoskrnl.exe中查到了PspTerminateProcess</p>
+<p>以下给出IDA的伪代码，不一定对</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">__int64 __fastcall PspTerminateProcess(PRKPROCESS PROCESS, __int64 a2, unsigned int a3, char a4)</span><br><span class="line">&#123;</span><br><span class="line">  signed __int32 v8; // esi</span><br><span class="line">  char v9; // di</span><br><span class="line">  unsigned int v10; // eax</span><br><span class="line">  unsigned int v11; // edi</span><br><span class="line"></span><br><span class="line">  _m_prefetchw((char *)&amp;PROCESS[1].DirectoryTableBase + 4);</span><br><span class="line">  v8 = _InterlockedOr((volatile signed __int32 *)&amp;PROCESS[1].DirectoryTableBase + 1, 8u);</span><br><span class="line">  if ( (v8 &amp; 8) != 0 )</span><br><span class="line">  &#123;</span><br><span class="line">    v9 = a4 | 2;</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    if ( (PerfGlobalGroupMask &amp; 1) != 0 )</span><br><span class="line">      EtwTraceProcessTerminate(PROCESS);</span><br><span class="line">    KeSetProcessSchedulingGroup(PROCESS, 0i64);</span><br><span class="line">    v9 = a4 | 4;</span><br><span class="line">    if ( (v8 &amp; 0x40000000) == 0 )</span><br><span class="line">      v9 = a4;</span><br><span class="line">    ExAcquirePushLockExclusiveEx((ULONG_PTR)&amp;PROCESS[1], 0i64);</span><br><span class="line">    if ( LODWORD(PROCESS[1].ActiveProcessors.StaticBitmap[8])</span><br><span class="line">      &amp;&amp; (a3 != -1073741749 || *(_DWORD *)&amp;PROCESS[1].Spare2[11] == 259) )</span><br><span class="line">    &#123;</span><br><span class="line">      *(_DWORD *)&amp;PROCESS[1].Spare2[11] = a3;</span><br><span class="line">    &#125;</span><br><span class="line">    if ( (_InterlockedExchangeAdd64((volatile signed __int64 *)&amp;PROCESS[1].Header.Lock, 0xFFFFFFFFFFFFFFFFui64) &amp; 6) == 2 )</span><br><span class="line">      ExfTryToWakePushLock(&amp;PROCESS[1]);</span><br><span class="line">    KeAbPostRelease((ULONG_PTR)&amp;PROCESS[1]);</span><br><span class="line">  &#125;</span><br><span class="line">  if ( (PROCESS[1].DirectoryTableBase &amp; 0x400) == 0 )</span><br><span class="line">  &#123;</span><br><span class="line">    v10 = PspTerminateAllThreads(PROCESS);</span><br><span class="line">LABEL_14:</span><br><span class="line">    v11 = v10;</span><br><span class="line">    goto LABEL_15;</span><br><span class="line">  &#125;</span><br><span class="line">  if ( *((_QWORD *)&amp;xmmword_140C37D40 + 1) &amp;&amp; (v9 &amp; 8) == 0 )</span><br><span class="line">  &#123;</span><br><span class="line">    v10 = (*((__int64 (__fastcall **)(PRKPROCESS, _QWORD))&amp;xmmword_140C37D40 + 1))(PROCESS, a3);</span><br><span class="line">    goto LABEL_14;</span><br><span class="line">  &#125;</span><br><span class="line">  v11 = 290;</span><br><span class="line">  PspRundownSingleProcess(PROCESS);</span><br><span class="line">LABEL_15:</span><br><span class="line">  if ( (v8 &amp; 8) == 0 )</span><br><span class="line">    KeForceResumeProcess(PROCESS);</span><br><span class="line">  return v11;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是这是一个未导出的函数，对于这样的函数，我们一般有两个方法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 暴力搜索，提取该函数的特征码，全盘搜索。</span><br><span class="line"><span class="number">2.</span> 如果有已文档化的函数调用了PspTerminateProcess，那我们就可以通过指针加偏移的方式</span><br><span class="line">获取到他的地址，同样可以调用。</span><br></pre></td></tr></table></figure>
+
+<p>所以为了对抗，我们必须也到0环去对进程操作</p>
+<h2 id="寻找函数"><a href="#寻找函数" class="headerlink" title="寻找函数"></a>寻找函数</h2><p>如果我们想要全盘搜索，肯定要先找到内核模块，每个内核模块都有一个对应的结构体来描述这个模块在内核中的位置大小，名称等等</p>
+<p>DriverEntry的第一个参数就是这个结构体</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NTSTATUS <span class="title function_">DriverEntry</span><span class="params">(</span></span><br><span class="line"><span class="params">    IN PDRIVER_OBJECT DriverObject,</span></span><br><span class="line"><span class="params">    IN PUNICODE_STRING RegistryPath</span></span><br><span class="line"><span class="params"></span></span><br></pre></td></tr></table></figure>
+
+<p>我们也可以在windbg中打开符号来看，在这里面+0x038和+0x020分别是DriverName和DriverSize</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>: kd&gt; dt _DRIVER_OBJECT</span><br><span class="line">nt!_DRIVER_OBJECT</span><br><span class="line">   +<span class="number">0x000</span> Type             : Int2B</span><br><span class="line">   +<span class="number">0x002</span> Size             : Int2B</span><br><span class="line">   +<span class="number">0x008</span> DeviceObject     : Ptr64 _DEVICE_OBJECT</span><br><span class="line">   +<span class="number">0x010</span> Flags            : Uint4B</span><br><span class="line">   +<span class="number">0x018</span> DriverStart      : Ptr64 Void</span><br><span class="line">   +<span class="number">0x020</span> DriverSize       : Uint4B</span><br><span class="line">   +<span class="number">0x028</span> DriverSection    : Ptr64 Void</span><br><span class="line">   +<span class="number">0x030</span> DriverExtension  : Ptr64 _DRIVER_EXTENSION</span><br><span class="line">   +<span class="number">0x038</span> DriverName       : _UNICODE_STRING</span><br><span class="line">   +<span class="number">0x048</span> HardwareDatabase : Ptr64 _UNICODE_STRING</span><br><span class="line">   +<span class="number">0x050</span> FastIoDispatch   : Ptr64 _FAST_IO_DISPATCH</span><br><span class="line">   +<span class="number">0x058</span> DriverInit       : Ptr64     <span class="type">long</span> </span><br><span class="line">   +<span class="number">0x060</span> DriverStartIo    : Ptr64     <span class="type">void</span> </span><br><span class="line">   +<span class="number">0x068</span> DriverUnload     : Ptr64     <span class="type">void</span> </span><br><span class="line">   +<span class="number">0x070</span> MajorFunction    : [<span class="number">28</span>] Ptr64     <span class="type">long</span> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在+0x028出有一个成员 DriverSection，这个成员实际上是指向了一个结构体_LDR_DATA_TABLE_ENTRY，之前的文章已经多次介绍了这个结构体</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>: kd&gt; dt _LDR_DATA_TABLE_ENTRY</span><br><span class="line">nt!_LDR_DATA_TABLE_ENTRY</span><br><span class="line">   +<span class="number">0x000</span> InLoadOrderLinks : _LIST_ENTRY<span class="comment">//如果PEB文章看了就知道这头三个都是双向链表指针</span></span><br><span class="line">   +<span class="number">0x010</span> InMemoryOrderLinks : _LIST_ENTRY</span><br><span class="line">   +<span class="number">0x020</span> InInitializationOrderLinks : _LIST_ENTRY</span><br><span class="line">   +<span class="number">0x030</span> DllBase          : Ptr64 Void</span><br><span class="line">   +<span class="number">0x038</span> EntryPoint       : Ptr64 Void</span><br><span class="line">   +<span class="number">0x040</span> SizeOfImage      : Uint4B</span><br><span class="line">   +<span class="number">0x048</span> FullDllName      : _UNICODE_STRING</span><br><span class="line">   +<span class="number">0x058</span> BaseDllName      : _UNICODE_STRING</span><br><span class="line">   +<span class="number">0x068</span> FlagGroup        : [<span class="number">4</span>] UChar</span><br><span class="line">   +<span class="number">0x068</span> Flags            : Uint4B</span><br><span class="line">  </span><br><span class="line">   ..............</span><br></pre></td></tr></table></figure>
+
+<p>挑选特征码的时候，要尽量避开mov,push这样特征码，也不能选重定位等待数据当作特征码，挑了如下一段代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fffff804`<span class="number">11</span>eeb441 <span class="number">75</span>ee            jne     nt!PspTerminateProcess+<span class="number">0x31</span> (fffff804`<span class="number">11</span>eeb431)</span><br><span class="line">fffff804`<span class="number">11</span>eeb443 <span class="number">448b</span>f0          mov     r14d,eax</span><br><span class="line">fffff804`<span class="number">11</span>eeb446 <span class="number">8b</span>f0            mov     esi,eax</span><br><span class="line">fffff804`<span class="number">11</span>eeb448 <span class="number">4183e608</span>        and     r14d,<span class="number">8</span></span><br><span class="line">fffff804`<span class="number">11</span>eeb44c <span class="number">0f</span>85b9000000    jne     nt!PspTerminateProcess+<span class="number">0x10b</span> (fffff804`<span class="number">11</span>eeb50b)</span><br><span class="line">fffff804`<span class="number">11</span>eeb452 <span class="number">8b</span>0d28106100    mov     ecx,dword ptr [nt!PerfGlobalGroupMask (fffff804`<span class="number">124f</span>c480)]</span><br><span class="line">fffff804`<span class="number">11</span>eeb458 f6c101          test    cl,<span class="number">1</span></span><br><span class="line">fffff804`<span class="number">11</span>eeb45b <span class="number">7408</span>            je      nt!PspTerminateProcess+<span class="number">0x65</span> (fffff804`<span class="number">11</span>eeb465)</span><br><span class="line">fffff804`<span class="number">11</span>eeb45d <span class="number">488b</span>cb          mov     rcx,rbx</span><br><span class="line">fffff804`<span class="number">11</span>eeb460 e8fbf2c4ff      call    nt!EtwTraceProcessTerminate (fffff804`<span class="number">11b</span>3a760)</span><br><span class="line">fffff804`<span class="number">11</span>eeb465 <span class="number">33</span>d2            xor     edx,edx</span><br></pre></td></tr></table></figure>
+
+<p>提取出如下特征码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UCHAR szSpecialCode[] = &#123;0x75,0xee,0x44,0x8b,0xf0,0x41,0x83,0xe6,0x08,0x0f,0x85,0xb9,0x00,0x00,0x00,0x8b,0x0d,0x28,0x10,0x61,0x00,0xf6,0xc1,0x01,0x74,0x08,0x48,0x8b,0xcb,0xe8,0xfb,,0xf2,0xc4,0xff,0x33,0xd2&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="demo（x64）"><a href="#demo（x64）" class="headerlink" title="demo（x64）"></a>demo（x64）</h2><p>这是用我自己虚拟机调的，但是没反应，DbgView也没有输出，先挂个代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;ntifs.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">LDR_DATA_TABLE_ENTRY</span> &#123;</span></span><br><span class="line">	LIST_ENTRY InLoadOrderLinks;</span><br><span class="line">	LIST_ENTRY InMemoryOrderLinks;</span><br><span class="line">	LIST_ENTRY InInitianlizationOrderLinks;</span><br><span class="line">	PVOID DllBase;</span><br><span class="line">	PVOID EntryPoint;</span><br><span class="line">	UINT32 SizeofImage;</span><br><span class="line">	UNICODE_STRING FullDllName;</span><br><span class="line">	UNICODE_STRING BaseDllName;</span><br><span class="line">	UINT32 Flags;</span><br><span class="line">	UINT16 LoadCount;</span><br><span class="line">	UINT16 TlsIndex;</span><br><span class="line">	LIST_ENTRY HashLinks;</span><br><span class="line">	PVOID SectionPointer;</span><br><span class="line">	UINT32 CheckSum;</span><br><span class="line">	UINT32 TimeDateStamp;</span><br><span class="line">	PVOID LoadedImports;</span><br><span class="line">	PVOID EntryPointActivationContext;</span><br><span class="line">	PVOID PatchInformation;</span><br><span class="line">&#125;LDR_DATA_TABLE_ENTRY,*PLDR_DATA_TABLE_ENTRY;</span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">NTSTATUS</span><span class="params">(*pfnPspTerninateProcess)</span><span class="params">(PEPROCESS pEprocess, NTSTATUS ExitCode)</span>;</span><br><span class="line"></span><br><span class="line">VOID <span class="title function_">DriverUnload</span><span class="params">(IN PDRIVER_OBJECT driverObject)</span>;<span class="comment">//定义卸载驱动</span></span><br><span class="line"></span><br><span class="line">PVOID <span class="title function_">SearchFunction</span><span class="params">(PUCHAR DllBase, UINT32 SizeOfImage)</span>;<span class="comment">//查找模块中匹配的特征码</span></span><br><span class="line"></span><br><span class="line">ULONG g_uPID = <span class="number">1912</span>;<span class="comment">//关闭的进程PID</span></span><br><span class="line"></span><br><span class="line">UCHAR szSpecialCode[] = &#123; <span class="number">0x75</span>,<span class="number">0xee</span>,<span class="number">0x44</span>,<span class="number">0x8b</span>,<span class="number">0xf0</span>,<span class="number">0x41</span>,<span class="number">0x83</span>,<span class="number">0xe6</span>,<span class="number">0x08</span>,<span class="number">0x0f</span>,<span class="number">0x85</span>,<span class="number">0xb9</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x8b</span>,<span class="number">0x0d</span>,<span class="number">0x28</span>,<span class="number">0x10</span>,<span class="number">0x61</span>,<span class="number">0x00</span>,<span class="number">0xf6</span>,<span class="number">0xc1</span>,<span class="number">0x01</span>,<span class="number">0x74</span>,<span class="number">0x08</span>,<span class="number">0x48</span>,<span class="number">0x8b</span>,<span class="number">0xcb</span>,<span class="number">0xe8</span>,<span class="number">0xfb</span>,<span class="number">0xf2</span>,<span class="number">0xc4</span>,<span class="number">0xff</span>,<span class="number">0x33</span>,<span class="number">0xd2</span> &#125;;</span><br><span class="line"></span><br><span class="line">UINT32 g_uSpecialCodeLen = <span class="keyword">sizeof</span>(szSpecialCode);<span class="comment">//特征码长度</span></span><br><span class="line"></span><br><span class="line">NTSTATUS <span class="title function_">DriverEntry</span><span class="params">(IN PDRIVER_OBJECT driverObject, IN PUNICODE_STRING registryPath)</span> &#123;</span><br><span class="line">	NTSTATUS status = STATUS_SUCCESS;</span><br><span class="line">	PLDR_DATA_TABLE_ENTRY pLdrDataTableEntry = <span class="literal">NULL</span>;</span><br><span class="line">	pfnPspTerninateProcess pPspTerminateProcess = <span class="literal">NULL</span>;</span><br><span class="line">	PEPROCESS pEprocess = <span class="literal">NULL</span>;</span><br><span class="line">	DbgPrint(<span class="string">&quot;驱动加载完成\r\n&quot;</span>);</span><br><span class="line">	pLdrDataTableEntry = (PLDR_DATA_TABLE_ENTRY)driverObject-&gt;DriverSection;</span><br><span class="line">	pLdrDataTableEntry = CONTAINING_RECORD(pLdrDataTableEntry, LDR_DATA_TABLE_ENTRY, InLoadOrderLinks);</span><br><span class="line">	pLdrDataTableEntry = (PLDR_DATA_TABLE_ENTRY)pLdrDataTableEntry-&gt;InLoadOrderLinks.Flink;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		pLdrDataTableEntry = CONTAINING_RECORD(pLdrDataTableEntry, LDR_DATA_TABLE_ENTRY, InLoadOrderLinks);</span><br><span class="line">		<span class="comment">//如果存在则搜索特征码</span></span><br><span class="line">		<span class="keyword">if</span> (pLdrDataTableEntry-&gt;DllBase) &#123;</span><br><span class="line">			pPspTerminateProcess = (pfnPspTerninateProcess)SearchFunction((PUCHAR)pLdrDataTableEntry-&gt;DllBase, pLdrDataTableEntry-&gt;SizeofImage);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (pPspTerminateProcess)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="comment">//遍历</span></span><br><span class="line">		pLdrDataTableEntry = (PLDR_DATA_TABLE_ENTRY)pLdrDataTableEntry-&gt;InLoadOrderLinks.Flink;</span><br><span class="line">	&#125; <span class="keyword">while</span> ((UINT32)pLdrDataTableEntry != (UINT32)driverObject-&gt;DriverSection);</span><br><span class="line">	<span class="keyword">if</span> (pPspTerminateProcess) &#123;</span><br><span class="line">		status = PsLookupProcessByProcessId((HANDLE)g_uPID, &amp;pEprocess);</span><br><span class="line">		<span class="keyword">if</span> (NT_SUCCESS(status)) &#123;</span><br><span class="line">			status = pPspTerminateProcess(pEprocess, <span class="number">0</span>);</span><br><span class="line">			<span class="keyword">if</span> (NT_SUCCESS(status)) &#123;</span><br><span class="line">				DbgPrint(<span class="string">&quot;使用PspTerminateProcess关闭进程成功%d\r\n&quot;</span>, g_uPID);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			DbgPrint(<span class="string">&quot;PsLookupProcessByProcessId Error 0x%x\r\n&quot;</span>, status);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	driverObject-&gt;DriverUnload = DriverUnload;</span><br><span class="line">	<span class="keyword">return</span> STATUS_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line">VOID <span class="title function_">DriverUnload</span><span class="params">(IN PDRIVER_OBJECT driverObject)</span> &#123;</span><br><span class="line">	DbgPrint(<span class="string">&quot;驱动卸载完成\r\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PVOID <span class="title function_">SearchFunction</span><span class="params">(PUCHAR DllBase, UINT32 SizeOfImage)</span> &#123;</span><br><span class="line">	DbgPrint(<span class="string">&quot;Here is MemorySearch,length is :%d\r\n&quot;</span>, SizeOfImage);</span><br><span class="line">	PVOID pFuncAddr = <span class="literal">NULL</span>;</span><br><span class="line">	UINT32 uEnd = (UINT32)DllBase + SizeOfImage - g_uSpecialCodeLen;<span class="comment">//减去特征码后的长度</span></span><br><span class="line">	UINT32 i = <span class="number">0</span>;</span><br><span class="line">	BOOLEAN bOk = TRUE;</span><br><span class="line">	<span class="keyword">while</span> ((UINT32)DllBase &lt;= uEnd)</span><br><span class="line">	&#123;</span><br><span class="line">		bOk = TRUE;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; g_uSpecialCodeLen; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!MmIsAddressValid(&amp;DllBase[i]) || DllBase[i] != szSpecialCode[i]) &#123;</span><br><span class="line">				bOk = FALSE;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (bOk) &#123;</span><br><span class="line">			pFuncAddr = (PVOID)(DllBase - <span class="number">65</span>);</span><br><span class="line">			DbgPrint(<span class="string">&quot;找到特征码,内存地址为%p\r\n&quot;</span>, pFuncAddr);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		DllBase++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pFuncAddr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80"><span class="toc-number">1.</span> <span class="toc-text">进程强杀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ZwTerminateProcess"><span class="toc-number">1.1.</span> <span class="toc-text">ZwTerminateProcess</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">寻找函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo%EF%BC%88x64%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">demo（x64）</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2024 John Doe
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/sergodeeva">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-37473492-6', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
