@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="面对360杀毒，我们自己写的ShellCode Loader很容易就被检测出来  是因为我们用CS生成的Shellcode有问题吗，为了验证，我们把相关Shellcode删的只剩一个字节  这样就没有被杀掉 回去设置好C2 Profile，将监听器改为https，生成新的shellcode 然后 我们用Resource Hacker给文件打上Kernel32的信息   再用sigthief sec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/10/08/%E5%85%8D%E6%9D%80/%E7%86%B5%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8D/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="面对360杀毒，我们自己写的ShellCode Loader很容易就被检测出来  是因为我们用CS生成的Shellcode有问题吗，为了验证，我们把相关Shellcode删的只剩一个字节  这样就没有被杀掉 回去设置好C2 Profile，将监听器改为https，生成新的shellcode 然后 我们用Resource Hacker给文件打上Kernel32的信息   再用sigthief sec">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006170127619.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006170225880.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006173612675.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006172313940.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006172321497.png">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006174844134.png">
+<meta property="article:published_time" content="2024-10-08T03:50:54.566Z">
+<meta property="article:modified_time" content="2024-10-06T09:54:30.056Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006170127619.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-免杀/熵与自签名" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E7%86%B5%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8D/" class="article-date">
+  <time class="dt-published" datetime="2024-10-08T03:50:54.566Z" itemprop="datePublished">2024-10-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>面对360杀毒，我们自己写的ShellCode Loader很容易就被检测出来</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006170127619.png" alt="image-20241006170127619"></p>
+<p>是因为我们用CS生成的Shellcode有问题吗，为了验证，我们把相关Shellcode删的只剩一个字节</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006170225880.png" alt="image-20241006170225880"></p>
+<p>这样就没有被杀掉</p>
+<p>回去设置好C2 Profile，将监听器改为https，生成新的shellcode</p>
+<p>然后</p>
+<p>我们用Resource Hacker给文件打上Kernel32的信息</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006173612675.png" alt="image-20241006173612675"></p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006172313940.png" alt="image-20241006172313940"></p>
+<p>再用sigthief <a target="_blank" rel="noopener" href="https://github.com/secretsquirrel/SigThief">secretsquirrel&#x2F;SigThief: Stealing Signatures and Making One Invalid Signature at a Time (github.com)</a>来偷kernel32的签名</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sigthief.py -i <span class="string">&quot;C:\windows\system32\kernel32.dll&quot;</span> -t C:\Users\su\source\repos\ShellCode_Loader_HideApi\x64\Release\ShellCode_Loader_HideApi.exe -o signTest.exe</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006172321497.png" alt="image-20241006172321497"></p>
+<p>不过这样还是没有过静态检测</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>目前可能有三种原因</p>
+<p>首先就是我C2 Profile的设置还是有问题，看起来加密的流量实际上没有加密</p>
+<p>还有可能是之前传恶意文件太多，360本身是存在阈值，也就是查杀力度，一段时间内检测到的一个恶意软件太多还是会让360加大查杀力度</p>
+<p>最后也有可能是之前传文件的时候，没有注意关闭样本云同步，导致它联网查杀，存储了我们文件的hash值</p>
+<p>至少先验证一下第三点</p>
+<p>重新打开一个项目，并且给代码加一两行</p>
+<p>然后把上面所有步骤都重复一遍，不过还是杀了（0.0</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20241006174844134.png" alt="image-20241006174844134"></p>
+<p>果然shellcode至少还是应该混淆一下（0&#x3D;0</p>
+<h1 id="熵"><a href="#熵" class="headerlink" title="熵"></a>熵</h1><p>entropy，这个概念最初可能是物理学上的概念，表达的是系统内在的混乱程度。熵是随机性的度量标 准，那么在计算机层面，安全产品是如何通过熵对我们文件进行查杀的呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">熵是杀毒软件中用于检测恶意代码的一种技术。它通过评估代码的随机性来确定其是否具有潜在的</span><br><span class="line">恶意性。</span><br><span class="line">代码的随机性是指其中的比特位或字节等数据是否具有均匀分布。正常代码通常具有较低的随机</span><br><span class="line">性，因为它是用特定的程序语言编写的，并且通常具有特定的语法和语义。恶意代码，例如恶意软</span><br><span class="line">件和恶意脚本，则通常具有较高的随机性，因为它们是使用随机数据生成工具或加密技术等进行生</span><br><span class="line">成的。</span><br><span class="line">因此，杀毒软件可以评估代码的随机性，以确定其是否具有恶意性。这通常是通过计算代码中每个</span><br><span class="line">数据块的熵值来完成的，并将这些值相加得到总熵值。如果总熵值超过了特定阈值，则可以认为代</span><br><span class="line">码具有恶意性。</span><br></pre></td></tr></table></figure>
+
+<p>总的来说，shellcode作为一段“乱码”，会让代码的熵值有一个突发的上升，这会成为一些杀软（Win Defender）所关注的点</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/08/%E5%85%8D%E6%9D%80/%E7%86%B5%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8D/" data-id="cm1zwlrfr000gu0v6cp7ceifz" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%B0%83%E8%AF%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E6%B1%87%E7%BC%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%B0%83%E8%AF%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E7%86%B5%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8D/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

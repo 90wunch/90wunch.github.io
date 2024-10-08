@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="内存加载检测vadroot在0环中，我们可以从VadRoot这个结构中看见内存分配 64位123456789101112+0x650 CommitChargePeak : Uint8B +0x680 Vm               : _MMSUPPORT_FULL +0x7c0 MmProcessLinks   : _LIST_ENTRY +0x7d0 ModifiedPageCount :">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/10/08/%E5%85%8D%E6%9D%80/%E5%86%85%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="内存加载检测vadroot在0环中，我们可以从VadRoot这个结构中看见内存分配 64位123456789101112+0x650 CommitChargePeak : Uint8B +0x680 Vm               : _MMSUPPORT_FULL +0x7c0 MmProcessLinks   : _LIST_ENTRY +0x7d0 ModifiedPageCount :">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240927094857471.png">
+<meta property="article:published_time" content="2024-10-08T03:50:54.564Z">
+<meta property="article:modified_time" content="2024-09-27T08:52:05.541Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240927094857471.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-免杀/内存加载检测" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E5%86%85%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%A3%80%E6%B5%8B/" class="article-date">
+  <time class="dt-published" datetime="2024-10-08T03:50:54.564Z" itemprop="datePublished">2024-10-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="内存加载检测"><a href="#内存加载检测" class="headerlink" title="内存加载检测"></a>内存加载检测</h1><h2 id="vadroot"><a href="#vadroot" class="headerlink" title="vadroot"></a>vadroot</h2><p>在0环中，我们可以从VadRoot这个结构中看见内存分配</p>
+<h3 id="64位"><a href="#64位" class="headerlink" title="64位"></a>64位</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+0x650 CommitChargePeak : Uint8B</span><br><span class="line"> +0x680 Vm               : _MMSUPPORT_FULL</span><br><span class="line"> +0x7c0 MmProcessLinks   : _LIST_ENTRY</span><br><span class="line"> +0x7d0 ModifiedPageCount : Uint4B</span><br><span class="line"> +0x7d4 ExitStatus       : Int4B</span><br><span class="line"> +0x7d8 VadRoot          : _RTL_AVL_TREE//////这里</span><br><span class="line"> +0x7e0 VadHint          : Ptr64 Void</span><br><span class="line"> +0x7e8 VadCount         : Uint8B</span><br><span class="line"> +0x7f0 VadPhysicalPages : Uint8B</span><br><span class="line"> +0x7f8 VadPhysicalPagesLimit : Uint8B</span><br><span class="line"> +0x800 AlpcContext      : _ALPC_PROCESS_CON</span><br></pre></td></tr></table></figure>
+
+<p>获取每个进程的EPROCESS</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>: kd&gt;  !process <span class="number">0</span> <span class="number">0</span></span><br><span class="line">**** NT ACTIVE PROCESS DUMP ****</span><br><span class="line">PROCESS ffffcc8f17483080</span><br><span class="line">    SessionId: none  Cid: <span class="number">0004</span>    Peb: <span class="number">00000000</span>  ParentCid: <span class="number">0000</span></span><br><span class="line">    DirBase: <span class="number">001</span>ad002  ObjectTable: ffffa08ace208e40  HandleCount: <span class="number">2537.</span></span><br><span class="line">    Image: System</span><br><span class="line"></span><br><span class="line">PROCESS ffffcc8f174e8080</span><br><span class="line">    SessionId: none  Cid: <span class="number">006</span>c    Peb: <span class="number">00000000</span>  ParentCid: <span class="number">0004</span></span><br><span class="line">    DirBase: <span class="number">00346002</span>  ObjectTable: ffffa08ace226380  HandleCount:   <span class="number">0.</span></span><br><span class="line">    Image: Registry</span><br><span class="line"></span><br><span class="line">PROCESS ffffcc8f180f7040</span><br><span class="line">    SessionId: none  Cid: <span class="number">0150</span>    Peb: <span class="number">40</span>dc1e0000  ParentCid: <span class="number">0004</span></span><br><span class="line">    DirBase: <span class="number">0e9</span>e5002  ObjectTable: ffffa08ace82e080  HandleCount:  <span class="number">53.</span></span><br><span class="line">    Image: smss.exe</span><br><span class="line"></span><br><span class="line">PROCESS ffffcc8f1825d080</span><br><span class="line">    SessionId: <span class="number">0</span>  Cid: <span class="number">01b</span>c    Peb: <span class="number">5515</span>c5d000  ParentCid: <span class="number">01b</span>4</span><br><span class="line">    DirBase: <span class="number">230</span>d71002  ObjectTable: ffffa08ad18f04c0  HandleCount: <span class="number">502.</span></span><br><span class="line">    Image: csrss.exe</span><br><span class="line"></span><br><span class="line">。。。。。。。。。。</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里PROCESS的值就是EPROCESS的头指针,我们可以看见进程名和VadRoot的偏移，在<strong>0x7d8</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">0: kd&gt; dt _EPROCESS ffffcc8f17483080</span><br><span class="line">nt!_EPROCESS</span><br><span class="line">  ................................</span><br><span class="line">   +0x580 WoW64Process     : (null) </span><br><span class="line">   +0x588 DeviceMap        : 0xffffa08a`ce237c00 Void</span><br><span class="line">   +0x590 EtwDataSource    : (null) </span><br><span class="line">   +0x598 PageDirectoryPte : 0</span><br><span class="line">   +0x5a0 ImageFilePointer : (null) </span><br><span class="line">   +0x5a8 ImageFileName    : [15]  &quot;System&quot;</span><br><span class="line">   +0x5b7 PriorityClass    : 0x2 &#x27;&#x27;</span><br><span class="line">   +0x5b8 SecurityPort     : (null) </span><br><span class="line">................................................</span><br><span class="line">   +0x7d0 ModifiedPageCount : 0xeb7</span><br><span class="line">   +0x7d4 ExitStatus       : 0n259</span><br><span class="line">   +0x7d8 VadRoot          : _RTL_AVL_TREE</span><br><span class="line">   +0x7e0 VadHint          : 0xffffcc8f`17475600 Void</span><br><span class="line">   +0x7e8 VadCount         : 6</span><br><span class="line">   +0x7f0 VadPhysicalPages : 0</span><br><span class="line">   +0x7f8 VadPhysicalPagesLimit : 0</span><br></pre></td></tr></table></figure>
+
+<p>继续按照偏移找到vadroot中的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">0: kd&gt; !vad ffffcc8f17483080+0x7d8</span><br><span class="line">VAD             Level         Start             End              Commit</span><br><span class="line">ffffcc8f19cd4520  3           77770           77913               9 Mapped  Exe  EXECUTE_WRITECOPY  \Windows\SysWOW64\ntdll.dll</span><br><span class="line">ffffcc8f174756f0  2           7ffe0           7ffe0               1 Private      READONLY           </span><br><span class="line">ffffcc8f17475600  1           7ffe7           7ffe7               1 Private      READONLY           </span><br><span class="line">ffffcc8f19ceb400  3        1c52e3e0        1c52e3e0               0 Mapped       READWRITE          Pagefile section, shared commit 0x1</span><br><span class="line">ffffcc8f19cd47a0  2       7fffa8710       7fffa8741               9 Mapped  Exe  EXECUTE_WRITECOPY  \Windows\System32\vertdll.dll</span><br><span class="line">ffffcc8f19cd5880  3       7fffa8750       7fffa8947              16 Mapped  Exe  EXECUTE_WRITECOPY  \Windows\System32\ntdll.dll</span><br><span class="line"></span><br><span class="line">Total VADs: 6, average level: 3, maximum depth: 3</span><br><span class="line">Total private commit: 0x24 pages (144 KB)</span><br><span class="line">Total shared commit:  0x1 pages (4 KB)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看见，在这个名为system的进程中，我们可以看见内存分配的范围，是Mapped还是Private，以及内存的权限等等信息</p>
+<h2 id="Mapped和Private"><a href="#Mapped和Private" class="headerlink" title="Mapped和Private"></a>Mapped和Private</h2><p>在Windows的内存，只有两种属性，一种Private，一种Mapped</p>
+<p>主要有两点不同：</p>
+<p><strong>申请内存的方式不同</strong> 私有内存：通过 VirtualAlloc&#x2F;VirtualAllocEx 申请的 映射内存：通过 CreateFileMapping 映射的</p>
+<p><strong>使用方式不同</strong> 私有内存：独享物理页 映射内存：可能要与其它进程共享物理页</p>
+<p>有 VirtualAlloc 和 CreateFileMapping 这两个函数申请的内存，称为私有内存和映射内存</p>
+<p>在C语言中使用 malloc 和在C++中使用 new 分配的堆空间并不是真正的内存，它们本身没有进入0环去申请内存空间，而是<strong>通过在操作系统一开始用 VirtualAlloc 已经分配好的一大块空间里面取一块</strong></p>
+<p>下面是两个函数的调用链</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**<span class="built_in">malloc</span> -&gt; _nh_malloc_dbg -&gt; _heap_alloc_dbg -&gt; _heap_alloc_base -&gt; HeapAlloc**</span><br><span class="line"></span><br><span class="line">**new -&gt; _nh_malloc -&gt; _nh_malloc_dbg -&gt; _heap_alloc_dbg -&gt; _heap_alloc_base -&gt; HeapAlloc**</span><br></pre></td></tr></table></figure>
+
+<p>无论是全局变量，局部变量，或者调用 malloc 函数，它都没有分配新的内存空间，<strong>只不过是使用了当 前进程已有的内存空间</strong></p>
+<p><strong>32位的Vadroot结构类似，并且更加简单，这里就不再赘述了</strong></p>
+<h2 id="检测shellcode驱动实现"><a href="#检测shellcode驱动实现" class="headerlink" title="检测shellcode驱动实现"></a>检测shellcode驱动实现</h2><p>单就shellcode的检测来说，shellcode加载到内存中一般通过LoadLibrary和GetProcessAddress来获取函数进行shellcode加载，</p>
+<p>为了隐蔽，攻击者通常会通过PEB找到 InLoadOrderModuleList 链表，自己去定位 LoadLibrary 函数从而规避杀软对导入表的监控。攻击者先把shellcode加密，在写入时解密存放到内存空间，使用基于文件检测的方法，是无能为力的，那么这种<strong>无落地</strong>的方式，最终都会在内存中一览无余</p>
+<p>先随便注入一个dll为例</p>
+<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240927094857471.png" alt="image-20240927094857471"></p>
+<p>这时候打开windbg，去查看notepad.exe这个进程</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>: kd&gt; !process <span class="number">0</span> <span class="number">0</span> notepad.exe</span><br><span class="line">PROCESS ffffcc8f1e87f340</span><br><span class="line">    SessionId: <span class="number">1</span>  Cid: <span class="number">2170</span>    Peb: <span class="number">90839</span>cd000  ParentCid: <span class="number">1404</span></span><br><span class="line">    DirBase: <span class="number">12e575002</span>  ObjectTable: ffffa08ad35b55c0  HandleCount: <span class="number">245.</span></span><br><span class="line">    Image: notepad.exe</span><br></pre></td></tr></table></figure>
+
+<p>转到进程的vadroot,在一众从System32里面加载出来的dll中，我们所注入的Dll_inject.dll非常的显眼，而且它也申请了写拷贝权限，这些在内存里面一览无余</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">2: kd&gt; !vad ffffcc8f1e87f340+0x7d8</span><br><span class="line">VAD             Level         Start             End              Commit</span><br><span class="line">.........................................................</span><br><span class="line"></span><br><span class="line">ffffcc8f1e4a0140  6       7fff8f090       7fff8f329               8 Mapped  Exe  EXECUTE_WRITECOPY  \Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.4355_none_60b8b9eb71f62e16\comctl32.dll</span><br><span class="line">ffffcc8f1dc9e120  5       7fff93450       7fff9352d               5 Mapped  Exe  EXECUTE_WRITECOPY  \Windows\System32\efswrt.dll</span><br><span class="line">ffffcc8f1e49f2e0  7       7fff943c0       7fff943c6               2 Mapped  Exe  EXECUTE_WRITECOPY  \Users\su\Desktop\Dll_inject.dll</span><br><span class="line">ffffcc8f1dc9e800  6       7fff96e90       7fff96eac               3 Mapped  Exe  EXECUTE_WRITECOPY  \Windows\System32\mpr.dll</span><br><span class="line">ffffcc8f1dc9e1c0  3       7fff97e40       7fff97eeb               2 Mapped  Exe  EXECUTE_WRITECOPY  </span><br><span class="line">....................................</span><br><span class="line">Total VADs: 100, average level: 6, maximum depth: 8</span><br><span class="line">Total private commit: 0x25c pages (2416 KB)</span><br><span class="line">Total shared commit:  0x1fcd pages (32564 KB)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="堆栈回溯"><a href="#堆栈回溯" class="headerlink" title="堆栈回溯"></a>堆栈回溯</h3><p>根据上面我们的发现，如果想要检测不落地的shellcode注入，那么肯定要重点盯防vad树种的private内存，特别是权限为READWRITE_EXECUTE或者写拷贝的内存</p>
+<p>这里我们就需要用到堆栈回溯，简单来说就是<strong>查看ebp和esp来确认堆栈的起始位置和结束位置</strong></p>
+<h3 id="EBP"><a href="#EBP" class="headerlink" title="EBP"></a>EBP</h3><p>堆栈就是利用 EBP 寄存器访问栈内部局部变量、参数、函数返回地址等的手段。程序运行 中， ESP 寄存器的值随时变化，访问栈中函数的局部变量、参数时，<strong>若以 ESP 值为基准编写程序会十分 困难</strong>，并且也很难使 CPU 引用到正确的地址</p>
+<p>所以，调用某函数时，先要把用作基准点（函数起始地址）的 ESP 值保存到 EBP ，并维持在函数内 部。这样，<strong>无论 ESP 的值如何变化，以 EBP 的值为基准能够安全访问到相关函数的局部变量、参数、 返回地址，</strong>这就是 EBP 寄存器作为堆栈指针的作用</p>
+<p>所以我们的思路就是，逐级向上遍历调用函数的EBP</p>
+<h3 id="栈信息的获取"><a href="#栈信息的获取" class="headerlink" title="栈信息的获取"></a>栈信息的获取</h3><p>这里经过查阅资料后发现<strong>栈信息的获取</strong>可以通过 RtlWalkFrameChain 这个函数实现，代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ULONG RtlWalkFrameChain(OUT PVOID *Callers, IN ULONG Count, IN ULONG Flags)</span><br></pre></td></tr></table></figure>
+
+<p>第一个参数 Callers 是一个数组，保存栈中 retaddr 值，第二个参数 Count 表示数组大小，第三个参 数 Flags&#x3D;0 则获取内核层栈信息， Flags&#x3D;1 则获取应用层栈信息</p>
+<p>在得到 EBP 内容之后，<strong>我们需要计算当前内核栈的范围，这是因为我们在计算数据时不能跑出一个范 围，否则会有蓝屏的危险</strong>。栈的开始地址就设置为 EBP 指针指向的地址，而终止范围是比较难确定的， 这个地址可以使用</p>
+<p>StackLimit 和StackBase。</p>
+<h3 id="StackLimit-和StackBase"><a href="#StackLimit-和StackBase" class="headerlink" title="StackLimit 和StackBase"></a>StackLimit 和StackBase</h3><p>我们可以看见TEB结构里面有_NT_TIB</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">2: kd&gt; dt _TEB</span><br><span class="line">nt!_TEB</span><br><span class="line">   +0x000 NtTib            : _NT_TIB</span><br><span class="line">   +0x038 EnvironmentPointer : Ptr64 Void</span><br><span class="line">   +0x040 ClientId         : _CLIENT_ID</span><br><span class="line">   +0x050 ActiveRpcHandle  : Ptr64 Void</span><br><span class="line">   +0x058 ThreadLocalStoragePointer : Ptr64 Void</span><br><span class="line">   +0x060 ProcessEnvironmentBlock : Ptr64 _PEB</span><br><span class="line">   +0x068 LastErrorValue   : Uint4B</span><br><span class="line">   +0x06c CountOfOwnedCriticalSections : Uint4B</span><br><span class="line">   +0x070 CsrClientThread  : Ptr64 Void</span><br><span class="line">   +0x078 Win32ThreadInfo  : Ptr64 Void</span><br><span class="line">   +0x080 User32Reserved   : [26] Uint4B</span><br><span class="line">  ...................................</span><br></pre></td></tr></table></figure>
+
+<p>进去继续看，可以看见StackLimit 和StackBase。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">2: kd&gt; dt _NT_TIB</span><br><span class="line">nt!_NT_TIB</span><br><span class="line">   +0x000 ExceptionList    : Ptr64 _EXCEPTION_REGISTRATION_RECORD</span><br><span class="line">   +0x008 StackBase        : Ptr64 Void</span><br><span class="line">   +0x010 StackLimit       : Ptr64 Void</span><br><span class="line">   +0x018 SubSystemTib     : Ptr64 Void</span><br><span class="line">   +0x020 FiberData        : Ptr64 Void</span><br><span class="line">   +0x020 Version          : Uint4B</span><br><span class="line">   +0x028 ArbitraryUserPointer : Ptr64 Void</span><br><span class="line">   +0x030 Self             : Ptr64 _NT_TIB</span><br></pre></td></tr></table></figure>
+
+<p>根据规定，所属每个函数调用的 EBP 和 ESP 寄存器所划定的空间，应该始终在当前线程的 StackLimit 到 StackBase 的范围之间存在</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>在知道了堆栈回溯之后，可以进行代码的编写，之前分析过shellcode会通过VirualAllc这种函数去申请private内存</p>
+<p>所以就可以用ZwQueryVirtualMemory这个API来确定虚拟空间的状态保护和类型，结构如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NTSYSAPI NTSTATUS <span class="title function_">ZwQueryVirtualMemory</span><span class="params">(</span></span><br><span class="line"><span class="params">[in] HANDLE ProcessHandle,</span></span><br><span class="line"><span class="params">[in, optional] PVOID BaseAddress,</span></span><br><span class="line"><span class="params">[in] MEMORY_INFORMATION_CLASS MemoryInformationClass,</span></span><br><span class="line"><span class="params">[out] PVOID MemoryInformation,</span></span><br><span class="line"><span class="params">[in] SIZE_T MemoryInformationLength,</span></span><br><span class="line"><span class="params">[out, optional] PSIZE_T ReturnLength</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数的几个参数分别是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[in] ProcessHandle</span><br><span class="line"></span><br><span class="line">要查询的页面所在的上下文的进程句柄。 使用 ZwCurrentProcess 宏指定当前进程。</span><br><span class="line"></span><br><span class="line">[in, optional] BaseAddress</span><br><span class="line"></span><br><span class="line">要查询的页区域的基址。 此值向下舍入到下一个主机页地址边界。</span><br><span class="line"></span><br><span class="line">[in] MemoryInformationClass</span><br><span class="line"></span><br><span class="line">要检索其相关信息的内存信息类。 目前，唯一受支持的 MEMORY_INFORMATION_CLASS 值为 MemoryBasicInformation。</span><br><span class="line"></span><br><span class="line">[out] MemoryInformation</span><br><span class="line"></span><br><span class="line">指向接收指定信息的缓冲区的指针。 缓冲区的格式和内容取决于 MemoryInformationClass 参数中指定的指定信息类。 当 MemoryBasicInformation 值传递到 MemoryInformationClass 时， MemoryInformation 参数值是 MEMORY_BASIC_INFORMATION 结构。</span><br><span class="line"></span><br><span class="line">[in] MemoryInformationLength</span><br><span class="line"></span><br><span class="line">指定内存信息缓冲区的长度（以字节为单位）。</span><br><span class="line"></span><br><span class="line">[out, optional] ReturnLength</span><br><span class="line"></span><br><span class="line">一个可选指针，如果指定，则接收放置在内存信息缓冲区中的字节数。</span><br></pre></td></tr></table></figure>
+
+<p>这里首先注意第三个参数<strong>MemoryInformationClass 只能设置为 MemoryBasicInformation</strong>，第四个参数指向 <strong>MEMORY_BASIC_INFORMATION</strong> 结构。</p>
+<p>这里我们首先定义<strong>MEMORY_BASIC_INFORMATION</strong>,这个微软给过官方定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">MEMORY_BASIC_INFORMATION</span> &#123;</span></span><br><span class="line">  PVOID  BaseAddress;</span><br><span class="line">  PVOID  AllocationBase;</span><br><span class="line">  DWORD  AllocationProtect;</span><br><span class="line"> <span class="meta">#<span class="keyword">if</span> defined(_WIN64)</span></span><br><span class="line">  WORD   PartitionId;</span><br><span class="line"> <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">  SIZE_T RegionSize;</span><br><span class="line">  DWORD  State;</span><br><span class="line">  DWORD  Protect;</span><br><span class="line">  DWORD  Type;</span><br><span class="line">&#125; MEMORY_BASIC_INFORMATION, *PMEMORY_BASIC_INFORMATION;</span><br></pre></td></tr></table></figure>
+
+<p>在代码中初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MEMORY_BASIC_INFORMATION MBInformation[<span class="keyword">sizeof</span>(MEMORY_BASIC_INFORMATION)] = &#123; <span class="number">0</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>ZwQueryVirtualMemory通过 NTSTATUS接收返回参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">NT_SUCCESS (状态)</span><br><span class="line">如果 Status 指定的返回值是成功类型 (0 • 0x3FFFFFFF) 或信息类型 (0x40000000 • 0x7FFFFFFF) ，则计算结果为 TRUE。</span><br><span class="line"></span><br><span class="line">NT_INFORMATION (状态)</span><br><span class="line">如果 Status 指定的返回值是信息类型 (0x40000000 • 0x7FFFFFFF) ，则计算结果为 TRUE。</span><br><span class="line"></span><br><span class="line">NT_WARNING (状态)</span><br><span class="line">如果 Status 指定的返回值是警告类型 (0x80000000 • 0xBFFFFFFF) ，则计算结果为 TRUE。</span><br><span class="line"></span><br><span class="line">NT_ERROR (状态)</span><br><span class="line">如果 Status 指定的返回值是错误类型 (0xC0000000 -0xFFFFFFFF) ，则计算结果为 TRUE。</span><br></pre></td></tr></table></figure>
+
+<p>这里写一个判断，来看我们是否查询成功</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NTSTATUS nt_status = ZwQueryVirtualMemory(NtCurrentProcess(), (PVOID)pAddress,</span><br><span class="line">MemoryBasicInformation, MBInformation, <span class="keyword">sizeof</span>(MEMORY_BASIC_INFORMATION),</span><br><span class="line">(PSIZE_T)&amp;RetLength);</span><br><span class="line"><span class="keyword">if</span> (NT_SUCCESS(nt_status))</span><br></pre></td></tr></table></figure>
+
+<p>然后我们再看**_MEMORY_BASIC_INFORMATION**</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _MEMORY_BASIC_INFORMATION &#123;</span><br><span class="line">  PVOID  BaseAddress;</span><br><span class="line">  PVOID  AllocationBase;</span><br><span class="line">  DWORD  AllocationProtect;</span><br><span class="line"> #if defined(_WIN64)</span><br><span class="line">  WORD   PartitionId;</span><br><span class="line"> #endif</span><br><span class="line">  SIZE_T RegionSize;</span><br><span class="line">  DWORD  State;</span><br><span class="line">  DWORD  Protect;</span><br><span class="line">  DWORD  Type;</span><br><span class="line">&#125; MEMORY_BASIC_INFORMATION, *PMEMORY_BASIC_INFORMATION;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的结构里面，会有参数state来确定页面是否处于MEM_COMMIT状态，Type参数有三个值来判断是否为可读可写可执行内存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">类型	含义</span><br><span class="line">MEM_IMAGE</span><br><span class="line">0x1000000</span><br><span class="line">指示区域中的内存页映射到图像节的视图中。</span><br><span class="line">MEM_MAPPED</span><br><span class="line">0x40000</span><br><span class="line">指示区域中的内存页映射到节的视图中。</span><br><span class="line">MEM_PRIVATE</span><br><span class="line">0x20000</span><br><span class="line">指示区域中的内存页是专用 (，而不是由其他进程) 共享。</span><br></pre></td></tr></table></figure>
+
+<p>首先先判断是否为 Mapped 或 private ，将写拷贝内存过滤掉</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> IsMemory = MBInformation-&gt;Type == MEM_PRIVATE || MBInformation-&gt;Type ==</span><br><span class="line">MEM_MAPPED;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>再判断是否为 MEM_COMMIT</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> IsCommit = MBInformation-&gt;State == MEM_COMMIT;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MEM_COMMIT 是在 Windows 操作系统中用于内存管理的重要标志之一。它的作用如下：</span><br><span class="line"></span><br><span class="line">作用</span><br><span class="line">分配物理内存: 当使用 MEM_COMMIT 标志时，系统会为某个内存区域分配实际的物理内存。这意味着该内存区域可以立即被程序使用。</span><br><span class="line"></span><br><span class="line">确保内存有效性: 通过使用 MEM_COMMIT，操作系统保证在访问该内存区域时不会出现“访问冲突”等错误，因为内存是已经被实际分配和映射的。</span><br><span class="line"></span><br><span class="line">支持写时复制: 当结合其他标志如 MEM_RESERVE 和 MEM_RESET 一起使用时，可以创建更复杂的内存策略。例如，你可以首先保留地址空间（MEM_RESERVE），然后在使用前通过 MEM_COMMIT 将其实际分配给物理内存。</span><br></pre></td></tr></table></figure>
+
+<p>最后判断具体是哪种权限的内存，至少要有执行权限</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> IsExecute = MBInformation-&gt;Protect == PAGE_EXECUTE || MBInformation-</span><br><span class="line">&gt;Protect == PAGE_EXECUTE_READWRITE ||</span><br><span class="line">MBInformation-&gt;Protect == PAGE_EXECUTE_READ || MBInformation-&gt;Protect ==</span><br><span class="line">PAGE_EXECUTE_WRITECOPY;</span><br></pre></td></tr></table></figure>
+
+<p>整体相与，满足所有条件的内存进行判断</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> IsResult = <span class="literal">false</span>;</span><br><span class="line">IsResult = IsMemory &amp;&amp; IsCommit &amp;&amp; IsExecute;</span><br></pre></td></tr></table></figure>
+
+<p>先初始化一下我们对于栈的查询</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PVOID ary[MAX_PATH]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">ULONG StackCount;</span><br><span class="line">StackCount = RtlWalkFrameChain(ary,MAX_PATH,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后通过循环遍历</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (ULONG i = StackCount; i &gt; <span class="number">0</span>; i--)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (CheckVAD((PVOID)ary[i]))</span><br><span class="line">&#123;</span><br><span class="line">DebugPrint(<span class="string">&quot;Stack : %d Address : %p \n&quot;</span>, i, ary[i]);</span><br><span class="line">bResult = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后调用栈回溯来检测内存的栈是否被修改，如果修改则证明有shellcode的注入（粗暴</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(stack_trace() == false)</span><br></pre></td></tr></table></figure>
+
+<p>最后使用ZwTerminateProcess结束当前进程的所有线程并输出</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DebugPrint(<span class="string">&quot;[!] Find shellcode inject , Process Name:</span></span><br><span class="line"><span class="string">%s\n&quot;</span>,PsGetProcessImageFileName(PsGetCurrentProcess()));</span><br><span class="line">ZwTerminateProcess(NtCurrentProcess(), <span class="number">0</span>);</span><br><span class="line">DebugPrint(<span class="string">&quot;[√] Delete successfully\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//系统头文件</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;intrin.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ntifs.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ntddk.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> STACK_WALK_WEIGHT 20</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DebugPrint(...) DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL,</span></span><br><span class="line">__VA_ARGS__)</span><br><span class="line">NTKERNELAPI UCHAR* <span class="title function_">PsGetProcessImageFileName</span><span class="params">(__in PEPROCESS Process)</span>;</span><br><span class="line">NTKERNELAPI NTSTATUS NTAPI <span class="title function_">ZwQueryInformationProcess</span><span class="params">(</span></span><br><span class="line"><span class="params">_In_ HANDLE ProcessHandle,</span></span><br><span class="line"><span class="params">_In_ PROCESSINFOCLASS ProcessInformationClass,</span></span><br><span class="line"><span class="params">_Out_ PVOID ProcessInformation,</span></span><br><span class="line"><span class="params">_In_ ULONG ProcessInformationLength,</span></span><br><span class="line"><span class="params">_Out_opt_ PULONG ReturnLength</span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> _<span class="title">PS_PROTECTED_TYPE</span> &#123;</span></span><br><span class="line">PsProtectedTypeNone = <span class="number">0</span>,</span><br><span class="line">PsProtectedTypeProtectedLight = <span class="number">1</span>,</span><br><span class="line">PsProtectedTypeProtected = <span class="number">2</span></span><br><span class="line">&#125; PS_PROTECTED_TYPE, * PPS_PROTECTED_TYPE;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> _<span class="title">PS_PROTECTED_SIGNER</span> &#123;</span></span><br><span class="line">PsProtectedSignerNone = <span class="number">0</span>,</span><br><span class="line">PsProtectedSignerAuthenticode,</span><br><span class="line">PsProtectedSignerCodeGen,</span><br><span class="line">PsProtectedSignerAntimalware,</span><br><span class="line">PsProtectedSignerLsa,</span><br><span class="line">PsProtectedSignerWindows,</span><br><span class="line">PsProtectedSignerWinTcb,</span><br><span class="line">PsProtectedSignerWinSystem,</span><br><span class="line">PsProtectedSignerApp,</span><br><span class="line">PsProtectedSignerMax</span><br><span class="line">&#125; PS_PROTECTED_SIGNER, * PPS_PROTECTED_SIGNER;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">PS_PROTECTION</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">UCHAR Level;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">UCHAR Type : <span class="number">3</span>;</span><br><span class="line">UCHAR Audit : <span class="number">1</span>; <span class="comment">// Reserved</span></span><br><span class="line">UCHAR Signer : <span class="number">4</span>;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;;</span><br><span class="line">&#125; PS_PROTECTION, * PPS_PROTECTION;</span><br><span class="line">BOOLEAN hLoadImageNotify;</span><br><span class="line">BOOLEAN <span class="title function_">CheckStackVAD</span><span class="params">(PVOID pAddress)</span></span><br><span class="line">&#123;</span><br><span class="line">BOOLEAN bResult = FALSE;</span><br><span class="line"><span class="type">size_t</span> iReturnlength;</span><br><span class="line">MEMORY_BASIC_INFORMATION MemoryInfomation[<span class="keyword">sizeof</span>(MEMORY_BASIC_INFORMATION)]</span><br><span class="line">= &#123; <span class="number">0</span> &#125;;</span><br><span class="line"><span class="keyword">if</span> (MemoryInfomation)</span><br><span class="line">&#123;</span><br><span class="line">NTSTATUS nt_status = ZwQueryVirtualMemory(NtCurrentProcess(),</span><br><span class="line">(PVOID)pAddress, MemoryBasicInformation, MemoryInfomation,</span><br><span class="line"><span class="keyword">sizeof</span>(MEMORY_BASIC_INFORMATION), (PSIZE_T)&amp;iReturnlength);</span><br><span class="line"><span class="keyword">if</span> (NT_SUCCESS(nt_status))</span><br><span class="line">&#123;</span><br><span class="line">BOOLEAN is_map_memory = (MemoryInfomation-&gt;Type == MEM_PRIVATE ||</span><br><span class="line">MemoryInfomation-&gt;Type == MEM_MAPPED) &amp;&amp; MemoryInfomation-&gt;State == MEM_COMMIT;</span><br><span class="line">bResult = is_map_memory &amp;&amp;</span><br><span class="line">(MemoryInfomation-&gt;Protect == PAGE_EXECUTE || MemoryInfomation-</span><br><span class="line">&gt;Protect == PAGE_EXECUTE_READWRITE ||</span><br><span class="line">MemoryInfomation-&gt;Protect == PAGE_EXECUTE_READ ||</span><br><span class="line">MemoryInfomation-&gt;Protect == PAGE_EXECUTE_WRITECOPY);</span><br><span class="line"><span class="keyword">if</span> (bResult)</span><br><span class="line">&#123;</span><br><span class="line">DebugPrint(<span class="string">&quot;MemoryInfomation_Protect: %08X</span></span><br><span class="line"><span class="string">MemoryInfomation_Type: %08X \n&quot;</span>, MemoryInfomation-&gt;Protect, MemoryInfomation-</span><br><span class="line">&gt;Type);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> bResult;</span><br><span class="line">&#125;</span><br><span class="line">BOOLEAN <span class="title function_">WalkStack</span><span class="params">(<span class="type">int</span> pHeight)</span></span><br><span class="line">&#123;</span><br><span class="line">BOOLEAN bResult = TRUE;</span><br><span class="line">PVOID dwStackWalkAddress[STACK_WALK_WEIGHT] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">ULONG64 iWalkChainCount = RtlWalkFrameChain(dwStackWalkAddress,</span><br><span class="line">STACK_WALK_WEIGHT, <span class="number">1</span>); <span class="comment">// 1为用户层</span></span><br><span class="line"><span class="type">int</span> iWalkLimit = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (ULONG64 i = iWalkChainCount; i &gt; <span class="number">0</span>; i--)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (iWalkLimit &gt; pHeight)</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">iWalkLimit++;</span><br><span class="line"><span class="keyword">if</span> (CheckStackVAD((PVOID)dwStackWalkAddress[i]))</span><br><span class="line">&#123;</span><br><span class="line">DebugPrint(<span class="string">&quot;Stack: %d Address: %p \n&quot;</span>, i, dwStackWalkAddress[i]);</span><br><span class="line">bResult = FALSE;</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> bResult;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">LoadImageNotify</span><span class="params">(PUNICODE_STRING pFullImageName, HANDLE pProcessId,</span></span><br><span class="line"><span class="params">PIMAGE_INFO pImageInfo)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (KeGetCurrentIrql() != PASSIVE_LEVEL)</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">if</span> (PsGetCurrentProcessId() != (HANDLE)<span class="number">4</span> &amp;&amp; PsGetCurrentProcessId() !=</span><br><span class="line">(HANDLE)<span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (WalkStack(<span class="number">10</span>) == FALSE)</span><br><span class="line">&#123;</span><br><span class="line">DebugPrint(<span class="string">&quot;[!] Find shellcode inject,process</span></span><br><span class="line"><span class="string">name:%s\n&quot;</span>,PsGetProcessImageFileName(PsGetCurrentProcess()));</span><br><span class="line">ZwTerminateProcess(NtCurrentProcess(), <span class="number">0</span>);</span><br><span class="line">DebugPrint(<span class="string">&quot;[√] Delete successfully\n&quot;</span>);</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">DriverUnload</span><span class="params">(PDRIVER_OBJECT pDriverObject)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (hLoadImageNotify)</span><br><span class="line">PsRemoveLoadImageNotifyRoutine(LoadImageNotify);</span><br><span class="line">DebugPrint(<span class="string">&quot;Driver unload successfully \n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">NTSTATUS <span class="title function_">DriverEntry</span><span class="params">(PDRIVER_OBJECT pDriverObject, PUNICODE_STRING pRegPath)</span></span><br><span class="line">&#123;</span><br><span class="line">hLoadImageNotify = NT_SUCCESS(PsSetLoadImageNotifyRoutine(LoadImageNotify));</span><br><span class="line"><span class="keyword">if</span> (!hLoadImageNotify)</span><br><span class="line">&#123;</span><br><span class="line">DebugPrint(<span class="string">&quot;LoadImageNotify failed\r\n&quot;</span>);</span><br><span class="line"><span class="keyword">return</span> STATUS_UNSUCCESSFUL;</span><br><span class="line">&#125;</span><br><span class="line">pDriverObject-&gt;DriverUnload = DriverUnload;</span><br><span class="line">DebugPrint(<span class="string">&quot;Driver load successfully\n&quot;</span>);</span><br><span class="line"><span class="keyword">return</span> STATUS_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="最后记录一下"><a href="#最后记录一下" class="headerlink" title="最后记录一下"></a>最后记录一下</h2><p>上面没有提到，在win10里面加载驱动是需要Kernel-Mode driver manager的，如果提示Open handle error那么检查有没有用管理员权限</p>
+<p>其次，<strong>win10以上不接受没有数字签名的驱动，这个可以关掉</strong></p>
+<p>最后就是，在测试几个注入和shellcodeloder的过程中</p>
+<p>Session注入在dll进程所附加的活动确实没有启动，但是在线程中的活动照常启动了（疑惑</p>
+<p>受制于我现在的知识，我附了windbg之后确实没发现什么问题，Session注入之后dll照常挂在了进程里面，但是代表进程附加的那个弹窗没有出现，只有线程的</p>
+<p>特此在这里记录一下，以后看看能不能找到原因</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span><br><span class="line">#include &quot;pch.h&quot;</span><br><span class="line"></span><br><span class="line">BOOL APIENTRY DllMain( HMODULE hModule,</span><br><span class="line">                       DWORD  ul_reason_for_call,</span><br><span class="line">                       LPVOID lpReserved</span><br><span class="line">                     )</span><br><span class="line">&#123;</span><br><span class="line">    switch (ul_reason_for_call)</span><br><span class="line">    &#123;</span><br><span class="line">    case DLL_PROCESS_ATTACH:</span><br><span class="line">        MessageBoxW(0, L&quot;1&quot;, L&quot;1&quot;, MB_OK);</span><br><span class="line">    case DLL_THREAD_ATTACH:</span><br><span class="line">        MessageBoxW(0, L&quot;2&quot;, L&quot;2&quot;, MB_OK);</span><br><span class="line">    case DLL_THREAD_DETACH:</span><br><span class="line">    case DLL_PROCESS_DETACH:</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    return TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/10/08/%E5%85%8D%E6%9D%80/%E5%86%85%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%A3%80%E6%B5%8B/" data-id="cm1zwlrfr000fu0v6bypi5unu" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E6%B1%87%E7%BC%96/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/10/08/%E5%85%8D%E6%9D%80/Windows%E5%BC%82%E5%B8%B8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">October 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">September 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E8%B0%83%E8%AF%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/08/%E5%85%8D%E6%9D%80/%E7%86%B5%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8D/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
