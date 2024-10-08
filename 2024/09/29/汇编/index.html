@@ -8,17 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="汇编数据宽度位，字节，字是计算机数据存储的单位，位是最小的存储单位，每一个位存储一个二进制码，一个字节8位，字通常由16，32，64位组成 位位是最基本的概念，在计算机中，由于只有0和1的存在，因此很多东西都要表示位二进制，英文名位bit 字节 字节由八个位组成的一个单元，也就是八个bit组成一个Byte 字字表示计算机处理指令或数据的二进制位数，是计算机进行数据存储和数据处理的运算单位，不同位数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/index.html">
+<meta property="og:title" content="汇编">
+<meta property="og:url" content="http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="汇编数据宽度位，字节，字是计算机数据存储的单位，位是最小的存储单位，每一个位存储一个二进制码，一个字节8位，字通常由16，32，64位组成 位位是最基本的概念，在计算机中，由于只有0和1的存在，因此很多东西都要表示位二进制，英文名位bit 字节 字节由八个位组成的一个单元，也就是八个bit组成一个Byte 字字表示计算机处理指令或数据的二进制位数，是计算机进行数据存储和数据处理的运算单位，不同位数">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240923235031084.png">
-<meta property="article:published_time" content="2024-10-08T03:50:54.565Z">
-<meta property="article:modified_time" content="2024-09-23T16:00:04.133Z">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/QLSNfzVKWBa9Yog.png">
+<meta property="article:published_time" content="2024-09-29T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-08T08:14:06.674Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="标签">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240923235031084.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/08/QLSNfzVKWBa9Yog.png">
     
     
         
@@ -38,7 +39,7 @@
         
     
     <!-- title -->
-    <title>Hexo</title>
+    <title>汇编</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -72,10 +73,8 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2024/10/08/%E7%86%B5%E4%B8%8E%E8%87%AA%E7%AD%BE%E5%90%8D/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2024/09/30/%E8%B0%83%E8%AF%95/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        
-        <li><a class="icon" href="/2024/10/08/%E5%86%85%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%A3%80%E6%B5%8B/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -88,16 +87,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&text=汇编"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&is_video=false&description=汇编"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=汇编&body=Check out this article: http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&name=汇编&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -114,7 +113,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        汇编
     </h1>
 
 
@@ -125,11 +124,16 @@
       </span>
       
     <div class="postdate">
-        <time datetime="2024-10-08T03:50:54.565Z" itemprop="datePublished">2024-10-08</time>
+        <time datetime="2024-09-29T04:00:00.000Z" itemprop="datePublished">2024-09-29</time>
     </div>
 
 
       
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%A0%87%E7%AD%BE/" rel="tag">标签</a>
+    </div>
+
 
     </div>
   </header>
@@ -179,7 +183,7 @@
 
 <h2 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h2><p>x86架构CPU中，标志寄存器主要有3种作用： <strong>存储相关指令执行后的结果</strong>，例如CF、PF、AF、ZF、OF标志位, <strong>执行相关指令时，提供行为依据</strong>，例如执行 JE 指令时会读取ZF的值，来决定是否进行跳转。 <strong>控制CPU的工作方</strong>式，例如IF、VM、TF等标志位。</p>
 <p>16位模式下，标志寄存器名称为 FLAG ，寄存器大小16位。 32位模式下，标志寄存器的名称为 EFLAG ，寄存器大小32位。 64位模式下，标志寄存器的名称为 RFLAG ，寄存器大小64位。</p>
-<h2 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h2><p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240923235031084.png" alt="image-20240923235031084"></p>
+<h2 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h2><p><img src="https://s2.loli.net/2024/10/08/QLSNfzVKWBa9Yog.png" alt="image-20240923235031084.png"></p>
 <h2 id="JCC语句"><a href="#JCC语句" class="headerlink" title="JCC语句"></a>JCC语句</h2><h3 id="jmp"><a href="#jmp" class="headerlink" title="jmp"></a>jmp</h3><p>跳转到指定地址：<strong>e9</strong> <strong>不涉及堆栈变化</strong> （不修改ebp&amp;esp）</p>
 <p><strong>本质：修改EIP</strong></p>
 <h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><p> 跳转到<strong>指定地址并运行到当前指令的下一行</strong></p>
@@ -229,16 +233,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E6%B1%87%E7%BC%96/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&text=汇编"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&is_video=false&description=汇编"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=汇编&body=Check out this article: http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&title=汇编"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/09/29/%E6%B1%87%E7%BC%96/&name=汇编&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
