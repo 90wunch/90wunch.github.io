@@ -8,22 +8,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="隐藏导入表通过pe文件，我们可以看见IAT导入表，在这个表中，记录了PE文件的使用以及相关的dll模块 我这里在vs2022中用dumpin &#x2F;imports 命令举例 1dumpbin &#x2F;imports .\NormalInjection.exe   这里我们可以看见，很多api，其中，VirtualAlloc，CreateThread等api会被重点盯防 那么，怎么在导入表中隐藏这些">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="隐藏导入表">
 <meta property="og:url" content="http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="隐藏导入表通过pe文件，我们可以看见IAT导入表，在这个表中，记录了PE文件的使用以及相关的dll模块 我这里在vs2022中用dumpin &#x2F;imports 命令举例 1dumpbin &#x2F;imports .\NormalInjection.exe   这里我们可以看见，很多api，其中，VirtualAlloc，CreateThread等api会被重点盯防 那么，怎么在导入表中隐藏这些">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240924124247030.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925090246577.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925091158089.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925091309114.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925091348716.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925091454814.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/7PHvmAtz32rpyRk.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/xEld1LhrO27TA8p.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/HCKkThoFs3Bye8i.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/2Hn95ot41CyUpF6.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/dPghUjbqpTzFSJ3.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/6ZPsXrQRtUAyYvp.png">
 <meta property="article:published_time" content="2024-10-08T03:50:54.570Z">
-<meta property="article:modified_time" content="2024-10-06T08:32:07.831Z">
+<meta property="article:modified_time" content="2024-10-08T08:51:46.978Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="标签">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240924124247030.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/08/7PHvmAtz32rpyRk.png">
     
     
         
@@ -43,7 +44,7 @@
         
     
     <!-- title -->
-    <title>Hexo</title>
+    <title>隐藏导入表</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -94,15 +95,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&text=隐藏导入表"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&is_video=false&description=隐藏导入表"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=隐藏导入表&body=Check out this article: http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&name=隐藏导入表&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -119,7 +120,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        隐藏导入表
     </h1>
 
 
@@ -135,6 +136,11 @@
 
 
       
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%A0%87%E7%AD%BE/" rel="tag">标签</a>
+    </div>
+
 
     </div>
   </header>
@@ -145,7 +151,7 @@
 <p>我这里在vs2022中用dumpin &#x2F;imports 命令举例</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dumpbin /imports .\NormalInjection.exe</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240924124247030.png" alt="image-20240924124247030"></p>
+<p><img src="https://s2.loli.net/2024/10/08/7PHvmAtz32rpyRk.png" alt="image-20240924124247030.png"></p>
 <p>这里我们可以看见，很多api，其中，<strong>VirtualAlloc，CreateThread</strong>等api会被重点盯防</p>
 <p>那么，怎么在导入表中隐藏这些api呢</p>
 <p>  首先我们使用的方法可以是，不直接调用这些函数，转而从kernel32里面直接找到这些函数的真实加载地址来做到不出现敏感api</p>
@@ -170,7 +176,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">InLoadOrderModuleList ：模块加载的顺序</span><br><span class="line">InMemoryOrderModuleList ：模块在内存的顺序</span><br><span class="line">InInitializationOrderModuleList ：模块初始化的顺序</span><br></pre></td></tr></table></figure>
 
 <p>每个链表头都有两个结构体成员，Flink和Blink分别指向下一个块和上一个块</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925090246577.png" alt="image-20240925090246577"></p>
+<p><img src="https://s2.loli.net/2024/10/08/xEld1LhrO27TA8p.png" alt="image-20240925090246577.png"></p>
 <p>而<strong>我们winapi一般都可以从kernel32里面调用</strong></p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 先找到PEB模块基址</span><br><span class="line">2. 再从PEB中找到 PEB_LDR_DATA 结构</span><br><span class="line">3. 定位双向链 InInitializationOrderModuleList</span><br><span class="line">4. 获得DLL的基地址</span><br></pre></td></tr></table></figure>
 
@@ -179,12 +185,12 @@
 
 <p>在64位中已经不支持内联汇编，需要额外的去写一个asm文件</p>
 <p>在vs2022创建的项目中 添加一个新建项，改为asm文件</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925091158089.png" alt="image-20240925091158089"></p>
+<p><img src="https://s2.loli.net/2024/10/08/HCKkThoFs3Bye8i.png" alt="image-20240925091158089.png"></p>
 <p>添加完文件之后，右键项目打开生成自定义界面，添加一个masm</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925091309114.png" alt="image-20240925091309114"></p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925091348716.png" alt="image-20240925091348716"></p>
+<p><img src="https://s2.loli.net/2024/10/08/2Hn95ot41CyUpF6.png" alt="image-20240925091309114.png"></p>
+<p><img src="https://s2.loli.net/2024/10/08/dPghUjbqpTzFSJ3.png" alt="image-20240925091348716.png"></p>
 <p>修改asm文件的属性，使用自定义生成工具</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240925091454814.png" alt="image-20240925091454814"></p>
+<p><img src="https://s2.loli.net/2024/10/08/6ZPsXrQRtUAyYvp.png" alt="image-20240925091454814.png"></p>
 <p>在属性的常规中的两行里面填入下面内容</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">命令行：ml64 /Fo $(IntDir)%(fileName).obj /c %(fileName).<span class="keyword">asm</span></span><br><span class="line">输出：$(IntDir)%(fileName).obj</span><br></pre></td></tr></table></figure>
 
@@ -233,15 +239,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&text=隐藏导入表"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&is_video=false&description=隐藏导入表"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=隐藏导入表&body=Check out this article: http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&title=隐藏导入表"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E9%9A%90%E8%97%8F%E5%AF%BC%E5%85%A5%E8%A1%A8/&name=隐藏导入表&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

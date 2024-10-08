@@ -8,18 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="进程强杀任务管理器是怎么结束一个进程的呢 它也是调用一个WINAPI，叫做TerminateProcess 1234BOOL TerminateProcess(  [in] HANDLE hProcess,  [in] UINT   uExitCode);  由于它也是一个三环的API，在面对杀软或者一些跑在0环的程序束手无策 12345678910111213141516171819202122">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="进程强杀">
 <meta property="og:url" content="http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="进程强杀任务管理器是怎么结束一个进程的呢 它也是调用一个WINAPI，叫做TerminateProcess 1234BOOL TerminateProcess(  [in] HANDLE hProcess,  [in] UINT   uExitCode);  由于它也是一个三环的API，在面对杀软或者一些跑在0环的程序束手无策 12345678910111213141516171819202122">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928123805405.png">
-<meta property="og:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928124156652.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/fdc2pMUowm4IzE8.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/08/PwQaEnLdgOSAJmB.png">
 <meta property="article:published_time" content="2024-10-08T03:50:54.569Z">
-<meta property="article:modified_time" content="2024-09-28T13:44:46.298Z">
+<meta property="article:modified_time" content="2024-10-08T08:42:29.355Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="标签">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928123805405.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/08/fdc2pMUowm4IzE8.png">
     
     
         
@@ -39,7 +40,7 @@
         
     
     <!-- title -->
-    <title>Hexo</title>
+    <title>进程强杀</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -90,15 +91,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&text="><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&is_video=false&description="><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&name=&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&text=进程强杀"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&is_video=false&description=进程强杀"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=进程强杀&body=Check out this article: http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&name=进程强杀&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -115,7 +116,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        进程强杀
     </h1>
 
 
@@ -131,6 +132,11 @@
 
 
       
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%A0%87%E7%AD%BE/" rel="tag">标签</a>
+    </div>
+
 
     </div>
   </header>
@@ -145,9 +151,9 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">TerminateProcessById</span><span class="params">(DWORD processID)</span> &#123;</span><br><span class="line">    <span class="comment">// 打开进程，获得进程的句柄</span></span><br><span class="line">    HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, processID);</span><br><span class="line">    <span class="keyword">if</span> (hProcess == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;无法打开进程，错误代码: %lu\n&quot;</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 终止进程</span></span><br><span class="line">    <span class="keyword">if</span> (TerminateProcess(hProcess, <span class="number">0</span>)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;成功终止进程: %lu\n&quot;</span>, processID);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;无法终止进程，错误代码: %lu\n&quot;</span>, GetLastError());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关闭句柄</span></span><br><span class="line">    CloseHandle(hProcess);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;使用方法: %s &lt;进程ID&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>; <span class="comment">// 返回错误代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将参数转换为进程ID</span></span><br><span class="line">    DWORD processID = (DWORD)atoi(argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    TerminateProcessById(processID);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>随便写了个demo，用ida打开，发现它也是从kernel32中去导入</p>
-<p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928123805405.png" alt="image-20240928123805405"></p>
+<p><img src="https://s2.loli.net/2024/10/08/fdc2pMUowm4IzE8.png" alt="image-20240928123805405.png"></p>
 <p>按照一般的winapi的规律，我们直接到ntdll去找相关api</p>
-<h2 id="ZwTerminateProcess"><a href="#ZwTerminateProcess" class="headerlink" title="ZwTerminateProcess"></a>ZwTerminateProcess</h2><p><img src="C:\Users\su\AppData\Roaming\Typora\typora-user-images\image-20240928124156652.png" alt="image-20240928124156652"></p>
+<h2 id="ZwTerminateProcess"><a href="#ZwTerminateProcess" class="headerlink" title="ZwTerminateProcess"></a>ZwTerminateProcess</h2><p><img src="https://s2.loli.net/2024/10/08/PwQaEnLdgOSAJmB.png" alt="image-20240928124156652.png"></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NTSYSAPI NTSTATUS <span class="title function_">ZwTerminateProcess</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in, optional] HANDLE   ProcessHandle,</span></span><br><span class="line"><span class="params">  [in]           NTSTATUS ExitStatus</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
 
 <p>这里微软专门强调了</p>
@@ -214,15 +220,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&text="><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&is_video=false&description="><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title="><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&name=&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&text=进程强杀"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&is_video=false&description=进程强杀"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=进程强杀&body=Check out this article: http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&title=进程强杀"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/10/08/%E8%BF%9B%E7%A8%8B%E5%BC%BA%E6%9D%80/&name=进程强杀&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
